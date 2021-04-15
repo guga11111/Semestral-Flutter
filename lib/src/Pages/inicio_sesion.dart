@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:semestral_flutter/src/Pages/carrito_page.dart';
 import 'package:semestral_flutter/src/Pages/registro_page.dart';
 
 class InicioSesion extends StatelessWidget {
@@ -6,7 +7,6 @@ class InicioSesion extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.orange[200],
-        appBar: AppBar(title: Text('Card Page')),
         body: ListView(children: <Widget>[
           _card(context),
           SizedBox(
@@ -57,7 +57,10 @@ class InicioSesion extends StatelessWidget {
                   color: Colors.orange[400],
                   textColor: Colors.white,
                   height: 40,
-                  onPressed: () {}),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => CarritoPage()));
+                  }),
               FlatButton(
                   child: Text('Registrarse'),
                   textColor: Colors.orange[400],
