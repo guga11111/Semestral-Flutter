@@ -6,8 +6,7 @@ class InicioSesion extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.orange[200],
-        appBar: AppBar(
-            backgroundColor: Colors.transparent, elevation: 0, title: Text('')),
+        appBar: AppBar(title: Text('Card Page')),
         body: ListView(children: <Widget>[
           _card(context),
           SizedBox(
