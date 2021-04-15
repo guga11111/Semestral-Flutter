@@ -1,5 +1,5 @@
 import 'package:semestral_flutter/src/Pages/alert_page.dart';
-import 'package:semestral_flutter/src/Pages/card_page.dart';
+import 'package:semestral_flutter/src/Pages/inicio_sesion.dart';
 import 'package:semestral_flutter/src/Pages/home_page.dart';
 import 'package:semestral_flutter/src/Routes/routes.dart';
 
