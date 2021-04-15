@@ -5,8 +5,6 @@ class RegistroPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.orange[200],
-        appBar: AppBar(
-            backgroundColor: Colors.transparent, elevation: 0, title: Text('')),
         body: ListView(children: <Widget>[
           _card(),
           SizedBox(
@@ -43,7 +41,8 @@ class RegistroPage extends StatelessWidget {
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.account_circle, color: Colors.black),
+                leading:
+                    Icon(Icons.account_circle_outlined, color: Colors.black),
                 title: TextField(
                   obscureText: false,
                   decoration: InputDecoration(
@@ -53,7 +52,7 @@ class RegistroPage extends StatelessWidget {
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.account_circle, color: Colors.black),
+                leading: Icon(Icons.email, color: Colors.black),
                 title: TextField(
                   obscureText: false,
                   decoration: InputDecoration(
@@ -63,7 +62,7 @@ class RegistroPage extends StatelessWidget {
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.account_circle, color: Colors.black),
+                leading: Icon(Icons.local_phone, color: Colors.black),
                 title: TextField(
                   obscureText: false,
                   decoration: InputDecoration(
