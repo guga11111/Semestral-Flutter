@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-class InicioSesion extends StatelessWidget {
+class RegistroPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.orange[200],
-        appBar: AppBar(
-            backgroundColor: Colors.transparent, elevation: 0, title: Text('')),
+        appBar: AppBar(title: Text('Card Page')),
         body: ListView(children: <Widget>[
           _card(),
           SizedBox(
