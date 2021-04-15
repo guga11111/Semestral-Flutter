@@ -6,7 +6,7 @@ import 'package:semestral_flutter/src/Pages/home_page.dart';
 
 Map<String, WidgetBuilder> getAplicationRoutes() {
   return <String, WidgetBuilder>{
-    '/': (BuildContext context) => HomePage(),
+    '/': (BuildContext context) => CardPage(),
     'alert': (BuildContext context) => AlertPage(),
     'avatar': (BuildContext context) => AvatarPage(),
     'card': (BuildContext context) => CardPage(),
