@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:semestral_flutter/src/Pages/registro_page.dart';
 
 class InicioSesion extends StatelessWidget {
   @override
@@ -8,14 +9,14 @@ class InicioSesion extends StatelessWidget {
         appBar: AppBar(
             backgroundColor: Colors.transparent, elevation: 0, title: Text('')),
         body: ListView(children: <Widget>[
-          _card(),
+          _card(context),
           SizedBox(
             height: 50,
           ),
         ]));
   }
 
-  Widget _card() {
+  Widget _card(BuildContext context) {
     final card = Container(
         child: new Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,7 +64,9 @@ class InicioSesion extends StatelessWidget {
                   textColor: Colors.orange[400],
                   color: Colors.white24,
                   height: 40,
-                  onPressed: () {})
+                  onPressed: () {
+                    _navigateToNextScreen(context);
+                  })
             ],
           ),
           Container(padding: EdgeInsets.all(5.0), child: Text(''))
@@ -87,5 +90,10 @@ class InicioSesion extends StatelessWidget {
           ],
           color: Colors.white),
     );
+  }
+
+  void _navigateToNextScreen(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => RegistroPage()));
   }
 }
