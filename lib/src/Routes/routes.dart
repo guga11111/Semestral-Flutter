@@ -6,9 +6,10 @@ import 'package:semestral_flutter/src/Pages/home_page.dart';
 
 Map<String, WidgetBuilder> getAplicationRoutes() {
   return <String, WidgetBuilder>{
-    '/': (BuildContext context) => InicioSesion(),
+    '/': (BuildContext context) => RegistroPage(), //Aqui inicio de sesión
     'alert': (BuildContext context) => AlertPage(),
-    'registro': (BuildContext context) => RegistroPage(),
+    'registro': (BuildContext context) =>
+        InicioSesion(), // Aqui debe ir registro xd
     'card': (BuildContext context) => HomePage(),
   };
 }

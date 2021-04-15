@@ -5,7 +5,8 @@ class RegistroPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.orange[200],
-        appBar: AppBar(title: Text('Card Page')),
+        appBar: AppBar(
+            backgroundColor: Colors.transparent, elevation: 0, title: Text('')),
         body: ListView(children: <Widget>[
           _card(),
           SizedBox(
@@ -37,7 +38,37 @@ class RegistroPage extends StatelessWidget {
                   obscureText: false,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
+                    labelText: 'Nombre Completo',
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.account_circle, color: Colors.black),
+                title: TextField(
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
                     labelText: 'Usuario',
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.account_circle, color: Colors.black),
+                title: TextField(
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Correo',
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.account_circle, color: Colors.black),
+                title: TextField(
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Teléfono',
                   ),
                 ),
               ),
@@ -52,17 +83,11 @@ class RegistroPage extends StatelessWidget {
                 ),
               ),
               FlatButton(
-                  child: Text('Iniciar sesión'),
+                  child: Text('Registrarse'),
                   color: Colors.orange[400],
                   textColor: Colors.white,
                   height: 40,
                   onPressed: () {}),
-              FlatButton(
-                  child: Text('Registrarse'),
-                  textColor: Colors.orange[400],
-                  color: Colors.white24,
-                  height: 40,
-                  onPressed: () {})
             ],
           ),
           Container(padding: EdgeInsets.all(5.0), child: Text(''))
