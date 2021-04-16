@@ -10,8 +10,8 @@ import 'package:semestral_flutter/src/Pages/secciones_page.dart';
 
 Map<String, WidgetBuilder> getAplicationRoutes() {
   return <String, WidgetBuilder>{
-    'menu': (BuildContext context) => InicioSesion(), //Aqui inicio de sesión
-    '/': (BuildContext context) => MenuPage(),
+    'menu': (BuildContext context) => MenuPage(), //Aqui inicio de sesión
+    '/': (BuildContext context) => InicioSesion(),
     'registro': (BuildContext context) =>
         RegistroPage(), // Aqui debe ir registro xd
     'card': (BuildContext context) => HomePage(),

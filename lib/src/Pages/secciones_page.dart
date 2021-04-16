@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:semestral_flutter/src/Pages/carrito_page.dart';
+import 'package:semestral_flutter/src/Pages/detalle_platillo.dart';
 import 'package:semestral_flutter/src/Pages/registro_page.dart';
 
 class SeccionesPage extends StatelessWidget {
@@ -176,6 +177,6 @@ class SeccionesPage extends StatelessWidget {
 
   void _navigateToNextScreen(BuildContext context) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => CarritoPage()));
+        .push(MaterialPageRoute(builder: (context) => DetallePage()));
   }
 }

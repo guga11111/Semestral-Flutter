@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:semestral_flutter/src/Pages/inicio_sesion.dart';
 import 'package:semestral_flutter/src/Pages/secciones_page.dart';
 
+import 'menu_page.dart';
+
 class RegistroPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -90,7 +92,7 @@ class RegistroPage extends StatelessWidget {
                   height: 40,
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => SeccionesPage()));
+                        builder: (context) => MenuPage()));
                   }),
               FlatButton(
                   child: Text('Volver'),
