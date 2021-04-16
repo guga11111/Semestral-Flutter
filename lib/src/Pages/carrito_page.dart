@@ -9,8 +9,8 @@ class CarritoPage extends StatelessWidget {
           new Row(
             children: <Widget>[],
           ),
+          _cardCarrito(),
           _card(),
-          _cardt3(),
           SizedBox(
             height: 30,
           ),
@@ -26,10 +26,31 @@ class CarritoPage extends StatelessWidget {
           Column(
             children: <Widget>[
               ListTile(
-                  leading:
-                      Icon(Icons.assistant_photo, color: Colors.cyanAccent),
-                  title: Text("Pozole"),
-                  subtitle: Text("200")),
+                trailing: Icon(Icons.place),
+                title: TextField(
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Dirección',
+                  ),
+                ),
+              ),
+              ListTile(
+                trailing: Icon(Icons.note_add_rounded),
+                title: TextField(
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Notas de envío',
+                  ),
+                ),
+              ),
+              FlatButton(
+                  child: Text('Ordenar YA!'),
+                  color: Colors.orange[400],
+                  textColor: Colors.white,
+                  height: 40,
+                  onPressed: () {}),
             ],
           ),
           Container(padding: EdgeInsets.all(5.0), child: Text(''))
@@ -37,7 +58,7 @@ class CarritoPage extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.all(
-          30), //Guga, si no te sale centrado es por esto xd
+          20), //Guga, si no te sale centrado es por esto xd
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20.0),
         child: card,
@@ -55,9 +76,9 @@ class CarritoPage extends StatelessWidget {
     );
   }
 
-  Widget _cardt3() {
+  Widget _cardCarrito() {
     final card = Container(
-        padding: EdgeInsets.all(5.0),
+        padding: EdgeInsets.all(6.0),
         child: Row(
           children: <Widget>[
             Column(
@@ -79,7 +100,7 @@ class CarritoPage extends StatelessWidget {
             Column(
               children: [
                 Container(
-                  padding: EdgeInsets.all(.0),
+                  padding: EdgeInsets.all(0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -113,11 +134,11 @@ class CarritoPage extends StatelessWidget {
         child: card,
       ),
       padding: EdgeInsets.only(left: 10, right: 10),
-      margin: EdgeInsets.only(left: 30, right: 30),
+      margin: EdgeInsets.only(left: 30, right: 30, top: 40),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20.0),
-          border: Border.all(width: 5),
+          border: Border.all(width: 1),
           boxShadow: <BoxShadow>[
             BoxShadow(
                 color: Colors.black26,
