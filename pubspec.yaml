@@ -50,6 +50,14 @@ flutter:
    - lib/src/images/Fondo.jpeg
    - lib/src/images/mr-bolat-logo.png
    - lib/src/images/pozole_acapulco.jpg
+   - lib/src/images/Bebidas alcoholicas.png
+   - lib/src/images/Caldos.png
+   - lib/src/images/Comida rápida.png
+   - lib/src/images/Especial.png
+   - lib/src/images/Plato fuerte.png
+   - lib/src/images/Postres.png
+   - lib/src/images/Refrescos.png
+   - lib/src/images/Souvenirs.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
