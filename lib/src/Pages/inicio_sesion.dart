@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:semestral_flutter/src/Pages/carrito_page.dart';
+import 'package:semestral_flutter/src/Pages/menu_page.dart';
 import 'package:semestral_flutter/src/Pages/registro_page.dart';
 import 'package:semestral_flutter/src/Pages/secciones_page.dart';
 
@@ -59,8 +60,8 @@ class InicioSesion extends StatelessWidget {
                   textColor: Colors.white,
                   height: 40,
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => SeccionesPage()));
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => MenuPage()));
                   }),
               FlatButton(
                   child: Text('Registrarse'),
@@ -69,7 +70,16 @@ class InicioSesion extends StatelessWidget {
                   height: 40,
                   onPressed: () {
                     _navigateToNextScreen(context);
-                  })
+                  }),
+              FlatButton(
+                  child: Text('AMIND'),
+                  color: Colors.red[400],
+                  textColor: Colors.white,
+                  height: 40,
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => SeccionesPage()));
+                  }),
             ],
           ),
           Container(padding: EdgeInsets.all(5.0), child: Text(''))
