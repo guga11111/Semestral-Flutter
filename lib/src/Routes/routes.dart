@@ -4,12 +4,9 @@ import 'package:semestral_flutter/src/Pages/registro_page.dart';
 import 'package:semestral_flutter/src/Pages/inicio_sesion.dart';
 import 'package:semestral_flutter/src/Pages/home_page.dart';
 import 'package:semestral_flutter/src/Pages/carrito_page.dart';
-<<<<<<< Updated upstream
 import 'package:semestral_flutter/src/Pages/detalle_pedido.dart';
-=======
 import 'package:semestral_flutter/src/Pages/secciones_page.dart';
 
->>>>>>> Stashed changes
 
 Map<String, WidgetBuilder> getAplicationRoutes() {
   return <String, WidgetBuilder>{
@@ -19,10 +16,7 @@ Map<String, WidgetBuilder> getAplicationRoutes() {
         RegistroPage(), // Aqui debe ir registro xd
     'card': (BuildContext context) => HomePage(),
     'carrito': (BuildContext context) => CarritoPage(),
-<<<<<<< Updated upstream
     'detalle': (BuildContext context) => DetallePage(),
-=======
     'secciones': (BuildContext context) => SeccionesPage()
->>>>>>> Stashed changes
   };
 }
