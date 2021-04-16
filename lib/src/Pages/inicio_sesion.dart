@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:semestral_flutter/src/Pages/carrito_page.dart';
 import 'package:semestral_flutter/src/Pages/registro_page.dart';
+import 'package:semestral_flutter/src/Pages/secciones_page.dart';
 
 class InicioSesion extends StatelessWidget {
   @override
@@ -58,8 +59,8 @@ class InicioSesion extends StatelessWidget {
                   textColor: Colors.white,
                   height: 40,
                   onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => CarritoPage()));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => SeccionesPage()));
                   }),
               FlatButton(
                   child: Text('Registrarse'),

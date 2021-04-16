@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:semestral_flutter/src/Pages/inicio_sesion.dart';
+import 'package:semestral_flutter/src/Pages/secciones_page.dart';
 
 class RegistroPage extends StatelessWidget {
   @override
@@ -87,7 +88,10 @@ class RegistroPage extends StatelessWidget {
                   color: Colors.orange[400],
                   textColor: Colors.white,
                   height: 40,
-                  onPressed: () {}),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => SeccionesPage()));
+                  }),
               FlatButton(
                   child: Text('Volver'),
                   textColor: Colors.orange[400],

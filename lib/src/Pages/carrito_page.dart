@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:semestral_flutter/src/Pages/detalle_platillo.dart';
+import 'package:semestral_flutter/src/Pages/lista_page.dart';
 
 class CarritoPage extends StatelessWidget {
   @override
@@ -52,8 +53,8 @@ class CarritoPage extends StatelessWidget {
                   textColor: Colors.white,
                   height: 40,
                   onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => DetallePage()));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ListaPedidos()));
                   }),
             ],
           ),
