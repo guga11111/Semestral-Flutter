@@ -37,7 +37,7 @@ class InicioSesion extends StatelessWidget {
                 title: TextField(
                   obscureText: false,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: UnderlineInputBorder(),
                     labelText: 'Usuario',
                   ),
                 ),
@@ -47,7 +47,7 @@ class InicioSesion extends StatelessWidget {
                 title: TextField(
                   obscureText: true,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: UnderlineInputBorder(),
                     labelText: 'Contraseña',
                   ),
                 ),

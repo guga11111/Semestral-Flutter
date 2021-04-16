@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:semestral_flutter/src/Pages/detalle_platillo.dart';
 
 class CarritoPage extends StatelessWidget {
   @override
@@ -10,14 +11,14 @@ class CarritoPage extends StatelessWidget {
             children: <Widget>[],
           ),
           _cardCarrito(),
-          _card(),
+          _card(context),
           SizedBox(
             height: 30,
           ),
         ]));
   }
 
-  Widget _card() {
+  Widget _card(BuildContext context) {
     final card = Container(
         child: new Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -30,7 +31,7 @@ class CarritoPage extends StatelessWidget {
                 title: TextField(
                   obscureText: false,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: UnderlineInputBorder(),
                     labelText: 'Dirección',
                   ),
                 ),
@@ -40,7 +41,7 @@ class CarritoPage extends StatelessWidget {
                 title: TextField(
                   obscureText: false,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: UnderlineInputBorder(),
                     labelText: 'Notas de envío',
                   ),
                 ),
@@ -50,7 +51,10 @@ class CarritoPage extends StatelessWidget {
                   color: Colors.orange[400],
                   textColor: Colors.white,
                   height: 40,
-                  onPressed: () {}),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => DetallePage()));
+                  }),
             ],
           ),
           Container(padding: EdgeInsets.all(5.0), child: Text(''))

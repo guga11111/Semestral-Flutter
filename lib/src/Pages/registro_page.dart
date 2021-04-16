@@ -36,7 +36,7 @@ class RegistroPage extends StatelessWidget {
                 title: TextField(
                   obscureText: false,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: UnderlineInputBorder(),
                     labelText: 'Nombre Completo',
                   ),
                 ),
@@ -47,7 +47,7 @@ class RegistroPage extends StatelessWidget {
                 title: TextField(
                   obscureText: false,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: UnderlineInputBorder(),
                     labelText: 'Usuario',
                   ),
                 ),
@@ -57,7 +57,7 @@ class RegistroPage extends StatelessWidget {
                 title: TextField(
                   obscureText: false,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: UnderlineInputBorder(),
                     labelText: 'Correo',
                   ),
                 ),
@@ -67,7 +67,7 @@ class RegistroPage extends StatelessWidget {
                 title: TextField(
                   obscureText: false,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: UnderlineInputBorder(),
                     labelText: 'Teléfono',
                   ),
                 ),
@@ -77,7 +77,7 @@ class RegistroPage extends StatelessWidget {
                 title: TextField(
                   obscureText: true,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: UnderlineInputBorder(),
                     labelText: 'Contraseña',
                   ),
                 ),

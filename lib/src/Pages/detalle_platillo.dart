@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:semestral_flutter/src/Pages/carrito_page.dart';
+import 'package:semestral_flutter/src/Pages/lista_page.dart';
 import 'package:semestral_flutter/src/Pages/registro_page.dart';
 
 class DetallePage extends StatelessWidget {
@@ -22,53 +23,65 @@ class DetallePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
           new Container(
-              width: 120.0,
-              height: 120.0,
+              padding: EdgeInsets.only(left: 10, right: 10),
+              margin: EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
+              width: 160.0,
+              height: 160.0,
               decoration: new BoxDecoration(
-                  shape: BoxShape.circle,
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(10.0),
                   image: new DecorationImage(
                       fit: BoxFit.fill,
-                      image:
-                          new AssetImage("lib/src/images/mr-bolat-logo.png")))),
+                      image: new AssetImage(
+                          "lib/src/images/pozole_acapulco.jpg")))),
           Column(
             children: <Widget>[
               ListTile(
-                leading: Icon(Icons.account_circle, color: Colors.black),
                 title: TextField(
                   obscureText: false,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Usuario',
+                    border: UnderlineInputBorder(),
+                    labelText: 'Nombre del platillo',
                   ),
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.https, color: Colors.black),
                 title: TextField(
                   obscureText: true,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Contraseña',
+                    border: UnderlineInputBorder(),
+                    labelText: 'Precio del platillo',
                   ),
                 ),
               ),
+              ListTile(
+                title: TextField(
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelText: 'Ingredientes',
+                  ),
+                ),
+              ),
+              DropdownButton<String>(
+                items: <String>['Sopas', 'Comida rápida', 'Bebidas', 'Algo más']
+                    .map((String value) {
+                  return new DropdownMenuItem<String>(
+                    value: value,
+                    child: new Text(value),
+                  );
+                }).toList(),
+                onChanged: (_) {},
+              ),
               FlatButton(
-                  child: Text('Iniciar sesión'),
+                  child: Text('Guardar'),
                   color: Colors.orange[400],
                   textColor: Colors.white,
                   height: 40,
                   onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => CarritoPage()));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ListaPedidos()));
                   }),
-              FlatButton(
-                  child: Text('Registrarse'),
-                  textColor: Colors.orange[400],
-                  color: Colors.white24,
-                  height: 40,
-                  onPressed: () {
-                    _navigateToNextScreen(context);
-                  })
             ],
           ),
           Container(padding: EdgeInsets.all(5.0), child: Text(''))
