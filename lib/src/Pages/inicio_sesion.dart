@@ -1,8 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:semestral_flutter/src/Pages/carrito_page.dart';
 import 'package:semestral_flutter/src/Pages/menu_page.dart';
 import 'package:semestral_flutter/src/Pages/registro_page.dart';
 import 'package:semestral_flutter/src/Pages/secciones_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+FirebaseAuth auth = FirebaseAuth.instance;
 
 class InicioSesion extends StatelessWidget {
   @override
@@ -60,8 +64,7 @@ class InicioSesion extends StatelessWidget {
                   textColor: Colors.white,
                   height: 40,
                   onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => MenuPage()));
+                    signInWithEmailAndPassword();
                   }),
               FlatButton(
                   child: Text('Registrarse'),
@@ -108,5 +111,19 @@ class InicioSesion extends StatelessWidget {
   void _navigateToNextScreen(BuildContext context) {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => RegistroPage()));
+  }
+}
+
+signInWithEmailAndPassword() async {
+  try {
+    UserCredential userCredential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+            email: "barry.allen@example.com", password: "SuperSecretPassword!");
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'user-not-found') {
+      print('No user found for that email.');
+    } else if (e.code == 'wrong-password') {
+      print('Wrong password provided for that user.');
+    }
   }
 }

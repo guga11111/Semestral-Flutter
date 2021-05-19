@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:semestral_flutter/src/Pages/detalle_platillo.dart';
 import 'package:semestral_flutter/src/Pages/lista_page.dart';
 
 class CarritoPage extends StatelessWidget {

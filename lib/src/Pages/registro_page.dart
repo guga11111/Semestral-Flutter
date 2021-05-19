@@ -1,8 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:semestral_flutter/src/Pages/inicio_sesion.dart';
 import 'package:semestral_flutter/src/Pages/secciones_page.dart';
-
 import 'menu_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+FirebaseAuth auth = FirebaseAuth.instance;
 
 class RegistroPage extends StatelessWidget {
   @override
@@ -91,8 +94,7 @@ class RegistroPage extends StatelessWidget {
                   textColor: Colors.white,
                   height: 40,
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => MenuPage()));
+                    createUserWithEmailAndPassword();
                   }),
               FlatButton(
                   child: Text('Volver'),
@@ -130,5 +132,24 @@ class RegistroPage extends StatelessWidget {
   void _navigateToNextScreen(BuildContext context) {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => InicioSesion()));
+  }
+}
+
+createUserWithEmailAndPassword() async {
+  print('entro');
+  await Firebase.initializeApp();
+  try {
+    print('entro2');
+    UserCredential userCredential = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+            email: "barry.allen@example.com", password: "SuperSecretPassword!");
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'weak-password') {
+      print('The password provided is too weak.');
+    } else if (e.code == 'email-already-in-use') {
+      print('The account already exists for that email.');
+    }
+  } catch (e) {
+    print(e);
   }
 }

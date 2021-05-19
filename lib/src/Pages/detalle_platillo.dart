@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:semestral_flutter/src/Pages/carrito_page.dart';
+//import 'package:semestral_flutter/src/Pages/carrito_page.dart';
 import 'package:semestral_flutter/src/Pages/lista_page.dart';
 import 'package:semestral_flutter/src/Pages/registro_page.dart';
 
