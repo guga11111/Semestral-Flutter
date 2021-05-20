@@ -140,9 +140,10 @@ createUserWithEmailAndPassword() async {
   await Firebase.initializeApp();
   try {
     print('entro2');
+
     UserCredential userCredential = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(
-            email: "barry.allen@example.com", password: "SuperSecretPassword!");
+            email: "felish@hotmail.com", password: "123456");
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {
       print('The password provided is too weak.');
