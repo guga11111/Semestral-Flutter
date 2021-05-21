@@ -7,7 +7,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 
-class RegistroPage extends StatelessWidget {
+class RegistroPage extends StatefulWidget {
+  @override
+  _RegistroPageState createState() => _RegistroPageState();
+}
+
+class _RegistroPageState extends State<RegistroPage> {
+  String _email = '';
+  String _pass = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +74,9 @@ class RegistroPage extends StatelessWidget {
                     border: UnderlineInputBorder(),
                     labelText: 'Correo',
                   ),
+                  onChanged: (valor) => setState(() {
+                    _email = valor;
+                  }),
                 ),
               ),
               ListTile(
@@ -86,6 +97,9 @@ class RegistroPage extends StatelessWidget {
                     border: UnderlineInputBorder(),
                     labelText: 'Contraseña',
                   ),
+                  onChanged: (valor) => setState(() {
+                    _pass = valor;
+                  }),
                 ),
               ),
               FlatButton(
@@ -133,24 +147,24 @@ class RegistroPage extends StatelessWidget {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => InicioSesion()));
   }
-}
 
-createUserWithEmailAndPassword() async {
-  print('entro');
-  await Firebase.initializeApp();
-  try {
-    print('entro2');
+  createUserWithEmailAndPassword() async {
+    print('entro');
+    await Firebase.initializeApp();
+    try {
+      print('entro2');
 
-    UserCredential userCredential = await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(
-            email: "felish@hotmail.com", password: "123456");
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'weak-password') {
-      print('The password provided is too weak.');
-    } else if (e.code == 'email-already-in-use') {
-      print('The account already exists for that email.');
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: _email, password: _pass);
+      print(_pass);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
     }
-  } catch (e) {
-    print(e);
   }
 }
