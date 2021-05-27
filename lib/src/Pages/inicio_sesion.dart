@@ -8,7 +8,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 
-class InicioSesion extends StatelessWidget {
+class InicioPage extends StatefulWidget {
+  @override
+  _InicioSesion createState() => _InicioSesion();
+}
+
+class _InicioSesion extends State<InicioPage> {
+  String _email = '';
+  String _pass = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,8 +51,11 @@ class InicioSesion extends StatelessWidget {
                   obscureText: false,
                   decoration: InputDecoration(
                     border: UnderlineInputBorder(),
-                    labelText: 'Usuario',
+                    labelText: 'Correo',
                   ),
+                  onChanged: (valor) => setState(() {
+                    _email = valor;
+                  }),
                 ),
               ),
               ListTile(
@@ -56,6 +66,9 @@ class InicioSesion extends StatelessWidget {
                     border: UnderlineInputBorder(),
                     labelText: 'Contraseña',
                   ),
+                  onChanged: (valor) => setState(() {
+                    _pass = valor;
+                  }),
                 ),
               ),
               FlatButton(
@@ -112,18 +125,22 @@ class InicioSesion extends StatelessWidget {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => RegistroPage()));
   }
-}
 
-signInWithEmailAndPassword() async {
-  try {
-    UserCredential userCredential = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(
-            email: "barry.allen@example.com", password: "SuperSecretPassword!");
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'user-not-found') {
-      print('No user found for that email.');
-    } else if (e.code == 'wrong-password') {
-      print('Wrong password provided for that user.');
+  signInWithEmailAndPassword() async {
+    await Firebase.initializeApp();
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: _email, password: _pass);
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => MenuPage()));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      } else if (e != null) {
+        print(e.code);
+      }
     }
   }
 }

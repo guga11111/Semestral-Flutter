@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:semestral_flutter/src/Pages/inicio_sesion.dart';
+import 'package:semestral_flutter/src/Pages/inicio_sesion.dart';
 import 'package:semestral_flutter/src/Pages/secciones_page.dart';
+import 'inicio_sesion.dart';
 import 'menu_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -15,7 +18,9 @@ class RegistroPage extends StatefulWidget {
 class _RegistroPageState extends State<RegistroPage> {
   String _email = '';
   String _pass = '';
-
+  String _nombre = '';
+  String _tel = '';
+  String _usuario = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,6 +58,9 @@ class _RegistroPageState extends State<RegistroPage> {
                     border: UnderlineInputBorder(),
                     labelText: 'Nombre Completo',
                   ),
+                  onChanged: (valor) => setState(() {
+                    _nombre = valor;
+                  }),
                 ),
               ),
               ListTile(
@@ -64,6 +72,9 @@ class _RegistroPageState extends State<RegistroPage> {
                     border: UnderlineInputBorder(),
                     labelText: 'Usuario',
                   ),
+                  onChanged: (valor) => setState(() {
+                    _usuario = valor;
+                  }),
                 ),
               ),
               ListTile(
@@ -87,6 +98,9 @@ class _RegistroPageState extends State<RegistroPage> {
                     border: UnderlineInputBorder(),
                     labelText: 'Teléfono',
                   ),
+                  onChanged: (valor) => setState(() {
+                    _tel = valor;
+                  }),
                 ),
               ),
               ListTile(
@@ -145,18 +159,19 @@ class _RegistroPageState extends State<RegistroPage> {
 
   void _navigateToNextScreen(BuildContext context) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => InicioSesion()));
+        .push(MaterialPageRoute(builder: (context) => InicioPage()));
   }
 
   createUserWithEmailAndPassword() async {
+    Firebase.initializeApp();
     print('entro');
-    await Firebase.initializeApp();
     try {
       print('entro2');
-
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: _email, password: _pass);
-      print(_pass);
+      collection();
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => MenuPage()));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -166,5 +181,20 @@ class _RegistroPageState extends State<RegistroPage> {
     } catch (e) {
       print(e);
     }
+  }
+
+  collection() {
+    Firebase.initializeApp();
+    final firestoreInstance = FirebaseFirestore.instance;
+    var firebaseUser = FirebaseAuth.instance.currentUser;
+    firestoreInstance.collection("usuarios").doc(firebaseUser.uid).set({
+      "Nombre": _nombre,
+      "Correo": _email,
+      "Contraseña": _pass,
+      "Teléfono": _tel,
+      "Usuario": _usuario,
+    }).then((_) {
+      print("success!");
+    });
   }
 }
