@@ -49,6 +49,7 @@ class _InicioSesion extends State<InicioPage> {
                 leading: Icon(Icons.account_circle, color: Colors.black),
                 title: TextField(
                   obscureText: false,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     border: UnderlineInputBorder(),
                     labelText: 'Correo',

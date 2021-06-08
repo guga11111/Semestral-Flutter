@@ -1,9 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 //import 'package:semestral_flutter/src/Pages/carrito_page.dart';
 import 'package:semestral_flutter/src/Pages/lista_page.dart';
 import 'package:semestral_flutter/src/Pages/registro_page.dart';
 
-class DetallePage extends StatelessWidget {
+class DetallePage extends StatefulWidget {
+  @override
+  _DetallePageState createState() => _DetallePageState();
+}
+
+class _DetallePageState extends State<DetallePage> {
+  String _ingredientes = '';
+  String _precio = '';
+  String _nombre = '';
+  String _seccion = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +55,9 @@ class DetallePage extends StatelessWidget {
                     border: UnderlineInputBorder(),
                     labelText: 'Nombre del platillo',
                   ),
+                  onChanged: (valor) => setState(() {
+                    _nombre = valor;
+                  }),
                 ),
               ),
               ListTile(
@@ -52,6 +67,9 @@ class DetallePage extends StatelessWidget {
                     border: UnderlineInputBorder(),
                     labelText: 'Precio del platillo',
                   ),
+                  onChanged: (valor) => setState(() {
+                    _precio = valor;
+                  }),
                 ),
               ),
               ListTile(
@@ -61,17 +79,22 @@ class DetallePage extends StatelessWidget {
                     border: UnderlineInputBorder(),
                     labelText: 'Ingredientes',
                   ),
+                  onChanged: (valor) => setState(() {
+                    _ingredientes = valor;
+                  }),
                 ),
               ),
-              DropdownButton<String>(
-                items: <String>['Sopas', 'Comida rápida', 'Bebidas', 'Algo más']
-                    .map((String value) {
-                  return new DropdownMenuItem<String>(
-                    value: value,
-                    child: new Text(value),
-                  );
-                }).toList(),
-                onChanged: (_) {},
+              ListTile(
+                title: TextField(
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelText: 'Sección',
+                  ),
+                  onChanged: (valor) => setState(() {
+                    _seccion = valor;
+                  }),
+                ),
               ),
               FlatButton(
                   child: Text('Guardar'),
@@ -79,8 +102,9 @@ class DetallePage extends StatelessWidget {
                   textColor: Colors.white,
                   height: 40,
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ListaPedidos()));
+                    collection();
+                    /* Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ListaPedidos())); */
                   }),
             ],
           ),
@@ -110,5 +134,22 @@ class DetallePage extends StatelessWidget {
   void _navigateToNextScreen(BuildContext context) {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => RegistroPage()));
+  }
+
+  collection() {
+    Firebase.initializeApp();
+    final firestoreInstance = FirebaseFirestore.instance;
+    var firebaseUser = FirebaseAuth.instance.currentUser;
+    Firebase.initializeApp();
+
+    firestoreInstance.collection(_seccion).doc(firebaseUser.uid).set({
+      "Ingredientes": _ingredientes,
+      "Precio": _precio,
+      "Nombre": _nombre,
+      "Seccion": _seccion,
+      "Img": "sdvsdmvsvsmovsmdvmosdvmsmovsovmsome",
+    }).then((_) {
+      print("success!");
+    });
   }
 }
