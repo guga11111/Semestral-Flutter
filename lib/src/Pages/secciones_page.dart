@@ -3,7 +3,12 @@ import 'package:semestral_flutter/src/Pages/carrito_page.dart';
 import 'package:semestral_flutter/src/Pages/detalle_platillo.dart';
 import 'package:semestral_flutter/src/Pages/registro_page.dart';
 
-class SeccionesPage extends StatelessWidget {
+class SeccionesPage extends StatefulWidget {
+  @override
+  _SeccionesPageState createState() => _SeccionesPageState();
+}
+
+class _SeccionesPageState extends State<SeccionesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +37,7 @@ class SeccionesPage extends StatelessWidget {
                   color: Colors.white24,
                   padding: const EdgeInsets.only(left: 13, top: 15),
                   onPressed: () {
-                    _navigateToNextScreen(context);
+                    _caldos(context);
                   }),
               FlatButton(
                   child: Image.asset('lib/src/images/Plato fuerte.png'),
@@ -41,7 +46,7 @@ class SeccionesPage extends StatelessWidget {
                   color: Colors.white24,
                   padding: const EdgeInsets.only(left: 15, top: 15),
                   onPressed: () {
-                    _navigateToNextScreen(context);
+                    _platofuerte(context);
                   })
             ],
           ),
@@ -54,7 +59,7 @@ class SeccionesPage extends StatelessWidget {
                   color: Colors.white24,
                   padding: const EdgeInsets.only(left: 15, top: 10),
                   onPressed: () {
-                    _navigateToNextScreen(context);
+                    _postres(context);
                   }),
               FlatButton(
                   child: Image.asset('lib/src/images/Especial.png'),
@@ -63,7 +68,7 @@ class SeccionesPage extends StatelessWidget {
                   color: Colors.white24,
                   padding: const EdgeInsets.only(left: 15, top: 15),
                   onPressed: () {
-                    _navigateToNextScreen(context);
+                    _especiales(context);
                   })
             ],
           ),
@@ -76,7 +81,7 @@ class SeccionesPage extends StatelessWidget {
                   color: Colors.white24,
                   padding: const EdgeInsets.only(left: 15, top: 10),
                   onPressed: () {
-                    _navigateToNextScreen(context);
+                    _rapida(context);
                   }),
               FlatButton(
                   child: Image.asset('lib/src/images/Bebidas alcoholicas.png'),
@@ -85,7 +90,7 @@ class SeccionesPage extends StatelessWidget {
                   color: Colors.white24,
                   padding: const EdgeInsets.only(left: 15, top: 15),
                   onPressed: () {
-                    _navigateToNextScreen(context);
+                    _alcohol(context);
                   })
             ],
           ),
@@ -98,7 +103,7 @@ class SeccionesPage extends StatelessWidget {
                   color: Colors.white24,
                   padding: const EdgeInsets.only(left: 15, top: 10),
                   onPressed: () {
-                    _navigateToNextScreen(context);
+                    _refrescos(context);
                   }),
               FlatButton(
                   child: Image.asset('lib/src/images/Souvenirs.png'),
@@ -106,7 +111,7 @@ class SeccionesPage extends StatelessWidget {
                   textColor: Colors.orange[400],
                   padding: const EdgeInsets.only(left: 15, top: 15),
                   onPressed: () {
-                    _navigateToNextScreen(context);
+                    _souvenirs(context);
                   })
             ],
           ),
@@ -175,8 +180,48 @@ class SeccionesPage extends StatelessWidget {
     );
   }
 
+  void _caldos(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (_) => DetallePage(seccion: 'caldos')));
+  }
+
+  void _platofuerte(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (_) => DetallePage(seccion: 'platofuerte')));
+  }
+
+  void _postres(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (_) => DetallePage(seccion: 'postres')));
+  }
+
+  void _especiales(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (_) => DetallePage(seccion: 'especiales')));
+  }
+
+  void _rapida(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (_) => DetallePage(seccion: 'rapida')));
+  }
+
+  void _alcohol(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (_) => DetallePage(seccion: 'alcohol')));
+  }
+
+  void _refrescos(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (_) => DetallePage(seccion: 'refrescos')));
+  }
+
+  void _souvenirs(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (_) => DetallePage(seccion: 'souvenirs')));
+  }
+
   void _navigateToNextScreen(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => DetallePage()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (_) => DetallePage(seccion: 'prueba')));
   }
 }

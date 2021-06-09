@@ -7,11 +7,16 @@ import 'package:semestral_flutter/src/Pages/lista_page.dart';
 import 'package:semestral_flutter/src/Pages/registro_page.dart';
 
 class DetallePage extends StatefulWidget {
+  final String seccion;
+  const DetallePage({Key key, this.seccion}) : super(key: key);
   @override
-  _DetallePageState createState() => _DetallePageState();
+  _DetallePageState createState() => _DetallePageState(seccion: this.seccion);
 }
 
 class _DetallePageState extends State<DetallePage> {
+  String seccion;
+  _DetallePageState({this.seccion});
+
   String _ingredientes = '';
   String _precio = '';
   String _nombre = '';
@@ -92,7 +97,7 @@ class _DetallePageState extends State<DetallePage> {
                     labelText: 'Sección',
                   ),
                   onChanged: (valor) => setState(() {
-                    _seccion = valor;
+                    _seccion = seccion;
                   }),
                 ),
               ),
@@ -142,11 +147,11 @@ class _DetallePageState extends State<DetallePage> {
     var firebaseUser = FirebaseAuth.instance.currentUser;
     Firebase.initializeApp();
 
-    firestoreInstance.collection(_seccion).doc(firebaseUser.uid).set({
+    firestoreInstance.collection(seccion).doc(firebaseUser.uid).set({
       "Ingredientes": _ingredientes,
       "Precio": _precio,
       "Nombre": _nombre,
-      "Seccion": _seccion,
+      "Seccion": seccion,
       "Img": "sdvsdmvsvsmovsmdvmosdvmsmovsovmsome",
     }).then((_) {
       print("success!");
