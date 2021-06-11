@@ -1,10 +1,15 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
+import 'dart:io' as Io;
+import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:image_picker/image_picker.dart';
 //import 'package:semestral_flutter/src/Pages/carrito_page.dart';
 import 'package:semestral_flutter/src/Pages/lista_page.dart';
@@ -21,10 +26,14 @@ class _DetallePageState extends State<DetallePage> {
   String seccion;
   _DetallePageState({this.seccion});
   PickedFile imageFile;
+  String img = '';
 
   String _ingredientes = '';
   String _precio = '';
   String _nombre = '';
+  File imageResized;
+  String photoBase64;
+  String base64data;
 
   Future _showChoiceDialog(BuildContext context) {
     return showDialog(
@@ -58,7 +67,7 @@ class _DetallePageState extends State<DetallePage> {
                   ),
                   ListTile(
                     onTap: () {
-                      _openCamera(context);
+                      _openCamera(ImageSource.camera);
                     },
                     title: Text("Camera"),
                     leading: Icon(
@@ -101,7 +110,7 @@ class _DetallePageState extends State<DetallePage> {
                     : Image.file(File(imageFile.path)),
               ),
               FlatButton(
-                  child: Text('Abrir'),
+                  child: Text('imgss'),
                   color: Colors.orange[400],
                   textColor: Colors.white,
                   height: 40,
@@ -186,23 +195,35 @@ class _DetallePageState extends State<DetallePage> {
         .push(MaterialPageRoute(builder: (context) => RegistroPage()));
   }
 
-  void _openCamera(BuildContext context) async {
-    final pickedFile = await ImagePicker().getImage(
+  void _openCamera(ImageSource source) async {
+    /* final pickedFile = await ImagePicker().getImage(
       source: ImageSource.camera,
-    );
+    ); */
+    PickedFile imageFile2 =
+        await ImagePicker().getImage(source: ImageSource.camera);
+
+    Uint8List bytes = await imageFile2.readAsBytes();
+    String base64data = base64.encode(bytes);
+    print(base64data);
+    img = base64data;
+
     setState(() {
-      imageFile = pickedFile;
+      imageFile = imageFile2;
     });
   }
 
   void _openGallery(BuildContext context) async {
-    final pickedFile = await ImagePicker().getImage(
+    final imageFile2 = await ImagePicker().getImage(
       source: ImageSource.gallery,
     );
+
+    Uint8List bytes = await imageFile2.readAsBytes();
+    String base64data = base64.encode(bytes);
+    img = base64data;
+    print(base64data);
+
     setState(() {
-      imageFile = pickedFile;
-      print(pickedFile.path);
-      print(imageFile.path);
+      imageFile = imageFile2;
     });
   }
 
@@ -212,14 +233,12 @@ class _DetallePageState extends State<DetallePage> {
     var firebaseUser = FirebaseAuth.instance.currentUser;
     Firebase.initializeApp();
 
-    File _imageFile;
-
     firestoreInstance.collection(seccion).doc(firebaseUser.uid).set({
       "Ingredientes": _ingredientes,
       "Precio": _precio,
       "Nombre": _nombre,
       "Seccion": seccion,
-      "Img": "sdvsdmvsvsmovsmdvmosdvmsmovsovmsome",
+      "Img": img,
     }).then((_) {
       print("success!");
     });
