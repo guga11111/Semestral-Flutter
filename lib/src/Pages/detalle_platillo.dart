@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 //import 'package:semestral_flutter/src/Pages/carrito_page.dart';
 import 'package:semestral_flutter/src/Pages/lista_page.dart';
 import 'package:semestral_flutter/src/Pages/registro_page.dart';
@@ -16,21 +20,71 @@ class DetallePage extends StatefulWidget {
 class _DetallePageState extends State<DetallePage> {
   String seccion;
   _DetallePageState({this.seccion});
+  PickedFile imageFile;
 
   String _ingredientes = '';
   String _precio = '';
   String _nombre = '';
-  String _seccion = '';
+
+  Future _showChoiceDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              "Choose option",
+              style: TextStyle(color: Colors.blue),
+            ),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: [
+                  Divider(
+                    height: 1,
+                    color: Colors.blue,
+                  ),
+                  ListTile(
+                    onTap: () {
+                      _openGallery(context);
+                    },
+                    title: Text("Gallery"),
+                    leading: Icon(
+                      Icons.account_box,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  Divider(
+                    height: 1,
+                    color: Colors.blue,
+                  ),
+                  ListTile(
+                    onTap: () {
+                      _openCamera(context);
+                    },
+                    title: Text("Camera"),
+                    leading: Icon(
+                      Icons.camera,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.orange[200],
-        body: ListView(children: <Widget>[
-          _card(context),
-          SizedBox(
-            height: 50,
-          ),
-        ]));
+        body: ListView(
+          children: <Widget>[
+            _card(context),
+            SizedBox(
+              height: 50,
+            ),
+          ],
+        ));
   }
 
   Widget _card(BuildContext context) {
@@ -39,20 +93,23 @@ class _DetallePageState extends State<DetallePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-          new Container(
-              padding: EdgeInsets.only(left: 10, right: 10),
-              margin: EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
-              width: 160.0,
-              height: 160.0,
-              decoration: new BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(10.0),
-                  image: new DecorationImage(
-                      fit: BoxFit.fill,
-                      image: new AssetImage(
-                          "lib/src/images/pozole_acapulco.jpg")))),
           Column(
             children: <Widget>[
+              Card(
+                child: (imageFile == null)
+                    ? Text("Choose Image")
+                    : Image.file(File(imageFile.path)),
+              ),
+              FlatButton(
+                  child: Text('Abrir'),
+                  color: Colors.orange[400],
+                  textColor: Colors.white,
+                  height: 40,
+                  onPressed: () {
+                    _showChoiceDialog(context);
+                    /* Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ListaPedidos())); */
+                  }),
               ListTile(
                 title: TextField(
                   obscureText: false,
@@ -86,18 +143,6 @@ class _DetallePageState extends State<DetallePage> {
                   ),
                   onChanged: (valor) => setState(() {
                     _ingredientes = valor;
-                  }),
-                ),
-              ),
-              ListTile(
-                title: TextField(
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'Sección',
-                  ),
-                  onChanged: (valor) => setState(() {
-                    _seccion = seccion;
                   }),
                 ),
               ),
@@ -141,11 +186,33 @@ class _DetallePageState extends State<DetallePage> {
         .push(MaterialPageRoute(builder: (context) => RegistroPage()));
   }
 
+  void _openCamera(BuildContext context) async {
+    final pickedFile = await ImagePicker().getImage(
+      source: ImageSource.camera,
+    );
+    setState(() {
+      imageFile = pickedFile;
+    });
+  }
+
+  void _openGallery(BuildContext context) async {
+    final pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+    );
+    setState(() {
+      imageFile = pickedFile;
+      print(pickedFile.path);
+      print(imageFile.path);
+    });
+  }
+
   collection() {
     Firebase.initializeApp();
     final firestoreInstance = FirebaseFirestore.instance;
     var firebaseUser = FirebaseAuth.instance.currentUser;
     Firebase.initializeApp();
+
+    File _imageFile;
 
     firestoreInstance.collection(seccion).doc(firebaseUser.uid).set({
       "Ingredientes": _ingredientes,
