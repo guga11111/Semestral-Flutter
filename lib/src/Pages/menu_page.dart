@@ -1,10 +1,38 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:semestral_flutter/src/Pages/carrito_page.dart';
 import 'package:semestral_flutter/src/Pages/lista_page.dart';
 
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+}
+
 class MenuPage extends StatelessWidget {
+  final firestoreInstance = FirebaseFirestore.instance;
+
+  Future getCloudFirestoreUsers() async {
+    print("getCloudFirestore");
+
+    //assumes you have a collection called "users"
+    firestoreInstance.collection("caldos").get().then((querySnapshot) {
+      //print(querySnapshot);
+      print("caldos: results: length: " + querySnapshot.docs.length.toString());
+      querySnapshot.docs.forEach((value) {
+        print("caldos: results: value");
+        print(value.data());
+      });
+    }).catchError((onError) {
+      print("getCloudFirestoreUsers: ERROR");
+      print(onError);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    getCloudFirestoreUsers();
+
     return Scaffold(
         backgroundColor: Colors.orange[200],
         body: ListView(children: <Widget>[

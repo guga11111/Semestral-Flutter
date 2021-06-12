@@ -170,6 +170,7 @@ class _RegistroPageState extends State<RegistroPage> {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: _email, password: _pass);
       collection();
+
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => MenuPage()));
     } on FirebaseAuthException catch (e) {
