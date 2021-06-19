@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io' as Io;
+import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +13,7 @@ Future main() async {
 }
 
 String nombre, precio, img, ingredientes;
+dynamic newimage;
 
 class MenuPage extends StatelessWidget {
   final firestoreInstance = FirebaseFirestore.instance;
@@ -26,6 +30,10 @@ class MenuPage extends StatelessWidget {
         precio = value['Precio'];
         ingredientes = value['Ingredientes'];
         img = value['Img'];
+
+        newimage = Base64Decoder().convert(img);
+
+        Image.memory(newimage);
       });
     }).catchError((onError) {
       print("getCloudFirestoreUsers: ERROR");
@@ -56,7 +64,9 @@ class MenuPage extends StatelessWidget {
           children: <Widget>[
             Column(
               children: [
-                Container(
+                Image.memory(newimage, width: 100, height: 100),
+
+                /*  Container(
                     padding: EdgeInsets.all(20.0),
                     width: 100,
                     height: 100,
@@ -67,7 +77,7 @@ class MenuPage extends StatelessWidget {
                           fit: BoxFit.fill,
                           image: new AssetImage(
                               'lib/src/images/pozole_acapulco.jpg')),
-                    )),
+                    )), */
               ],
             ),
             Column(
