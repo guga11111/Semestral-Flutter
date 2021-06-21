@@ -88,15 +88,6 @@ class _InicioSesion extends State<InicioPage> {
                   onPressed: () {
                     _navigateToNextScreen(context);
                   }),
-              FlatButton(
-                  child: Text('AMIND'),
-                  color: Colors.red[400],
-                  textColor: Colors.white,
-                  height: 40,
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => SeccionesPage()));
-                  }),
             ],
           ),
           Container(padding: EdgeInsets.all(5.0), child: Text(''))
@@ -132,8 +123,18 @@ class _InicioSesion extends State<InicioPage> {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: _email, password: _pass);
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => MenuPage()));
+      var currentUser = FirebaseAuth.instance.currentUser;
+
+      if (currentUser.uid == "jKrdlg5dbfbyis6og7VDrgL8nB72") {
+        print(currentUser.uid);
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => SeccionesPage()));
+        print("ADMIN");
+      } else {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => MenuPage()));
+        print("NORMAL");
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
