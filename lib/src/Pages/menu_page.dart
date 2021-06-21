@@ -44,6 +44,7 @@ class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     getCloudFirestoreUsers();
+
     return StreamBuilder(
       stream: FirebaseFirestore.instance.collection('caldos').snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -56,7 +57,9 @@ class MenuPage extends StatelessWidget {
 
             //return Text(document['Nombre']);
             return Container(
-                padding: EdgeInsets.all(6.0),
+                color: Colors.yellow,
+                padding: EdgeInsets.only(left: 10, right: 10),
+                margin: EdgeInsets.only(left: 30, right: 30, top: 15),
                 child: Row(
                   children: <Widget>[
                     Column(
