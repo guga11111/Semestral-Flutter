@@ -111,7 +111,7 @@ class _DetallePageState extends State<DetallePage> {
                     : Image.file(File(imageFile.path)),
               ),
               FlatButton(
-                  child: Text('imgss'),
+                  child: Text('Foto'),
                   color: Colors.orange[400],
                   textColor: Colors.white,
                   height: 40,
@@ -134,7 +134,7 @@ class _DetallePageState extends State<DetallePage> {
               ),
               ListTile(
                 title: TextField(
-                  obscureText: true,
+                  obscureText: false,
                   decoration: InputDecoration(
                     border: UnderlineInputBorder(),
                     labelText: 'Precio del platillo',
@@ -163,8 +163,8 @@ class _DetallePageState extends State<DetallePage> {
                   height: 40,
                   onPressed: () {
                     collection();
-                    /* Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ListaPedidos())); */
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text("Se Agrego")));
                   }),
             ],
           ),
