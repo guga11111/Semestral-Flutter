@@ -12,7 +12,7 @@ Future main() async {
   await Firebase.initializeApp();
 }
 
-String nombre, precio, img, ingredientes;
+String nombre, precio, img, ingredientes, carri = "", carro = "";
 dynamic newimage;
 
 class MenuPage extends StatefulWidget {
@@ -31,8 +31,9 @@ class _MenuPageState extends State<MenuPage> {
           icon: const Icon(Icons.add_alert),
           tooltip: 'Show Snackbar',
           onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('This is a snackbar')));
+            //ScaffoldMessenger.of(context).showSnackBar(
+            //  const SnackBar(content: Text('This is a snackbar')));
+            carrito(context, carro);
           },
         ),
       ]),
@@ -108,12 +109,14 @@ class _MenuPageState extends State<MenuPage> {
                                     color: Colors.white24,
                                     height: 10,
                                     onPressed: () {
+                                      carri = document['Nombre'];
+                                      carro += carri;
                                       //_navigateToNextScreen(context);
-                                      carrito(context, document['Nombre']);
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(SnackBar(
-                                        content: Text("Agregado al carrito: " +
-                                            document['Nombre']),
+                                        content: Text(" Agregado al carrito: " +
+                                            carro +
+                                            " - "),
                                       ));
                                     })
                               ],

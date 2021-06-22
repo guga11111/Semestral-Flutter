@@ -164,7 +164,7 @@ class _DetallePageState extends State<DetallePage> {
                   onPressed: () {
                     collection();
                     ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: Text("Se Agrego")));
+                        .showSnackBar(SnackBar(content: Text("Se Agregó")));
                   }),
             ],
           ),
