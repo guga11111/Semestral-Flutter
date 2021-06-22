@@ -3,17 +3,37 @@ import 'package:semestral_flutter/src/Pages/lista_page.dart';
 
 class CarritoPage extends StatefulWidget {
   final String carrito;
-  const CarritoPage({Key key, this.carrito}) : super(key: key);
+  final int total;
+
+  const CarritoPage({Key key, this.carrito, this.total}) : super(key: key);
   @override
-  _CarritoPageState createState() => _CarritoPageState(carrito: this.carrito);
+  _CarritoPageState createState() =>
+      _CarritoPageState(carrito: this.carrito, total: this.total);
 }
 
 class _CarritoPageState extends State<CarritoPage> {
   String carrito;
-  _CarritoPageState({this.carrito});
+  int total;
+  _CarritoPageState({this.carrito, this.total});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: const Text('Carrito'),
+          backgroundColor: Colors.orange[400],
+          /* actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.add_shopping_cart),
+              tooltip: 'Carrito',
+              onPressed: () {
+                //ScaffoldMessenger.of(context).showSnackBar(
+                //  const SnackBar(content: Text('This is a snackbar')));
+               // carrito(context, carro, total);
+              },
+            ),
+          ]*/
+        ),
         backgroundColor: Colors.orange[200],
         body: ListView(children: <Widget>[
           new Row(
@@ -101,6 +121,7 @@ class _CarritoPageState extends State<CarritoPage> {
               children: [
                 Container(
                   constraints: BoxConstraints(maxWidth: 160),
+                  padding: EdgeInsets.only(bottom: 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -122,7 +143,7 @@ class _CarritoPageState extends State<CarritoPage> {
                             color: Colors.redAccent),
                       ),
                       Text(
-                        'Total',
+                        "Total",
                         overflow: TextOverflow.clip,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -131,7 +152,7 @@ class _CarritoPageState extends State<CarritoPage> {
                             decoration: TextDecoration.none),
                       ),
                       Text(
-                        '200 Pesos',
+                        total.toString() + "pesos",
                         overflow: TextOverflow.clip,
                         style: TextStyle(
                             fontWeight: FontWeight.normal, fontSize: 16),
@@ -149,7 +170,7 @@ class _CarritoPageState extends State<CarritoPage> {
         child: card,
       ),
       padding: EdgeInsets.only(left: 10, right: 10),
-      margin: EdgeInsets.only(left: 30, right: 30, top: 40),
+      margin: EdgeInsets.only(left: 30, right: 30, top: 20),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20.0),

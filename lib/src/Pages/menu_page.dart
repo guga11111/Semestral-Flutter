@@ -2,17 +2,21 @@ import 'dart:convert';
 import 'dart:io' as Io;
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:semestral_flutter/src/Pages/carrito_page.dart';
 import 'package:semestral_flutter/src/Pages/lista_page.dart';
+
+import 'inicio_sesion.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 }
 
-String precio = "", total = "", carri = "", carro = "";
+String converter, carri = "", carro = "";
+int total = 0, precio, va;
 dynamic newimage;
 
 class MenuPage extends StatefulWidget {
@@ -26,17 +30,31 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: AppBar(title: const Text('Menú'), actions: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.add_alert),
-          tooltip: 'Show Snackbar',
-          onPressed: () {
-            //ScaffoldMessenger.of(context).showSnackBar(
-            //  const SnackBar(content: Text('This is a snackbar')));
-            carrito(context, carro);
-          },
-        ),
-      ]),
+      appBar: AppBar(
+          title: const Text('Menú'),
+          backgroundColor: Colors.orange[400],
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.logout),
+              tooltip: 'Cerrar sesión',
+              onPressed: () async {
+                carro = "";
+                converter = "";
+                await FirebaseAuth.instance.signOut();
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => InicioPage()));
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.add_shopping_cart),
+              tooltip: 'Carrito',
+              onPressed: () {
+                //ScaffoldMessenger.of(context).showSnackBar(
+                //  const SnackBar(content: Text('This is a snackbar')));
+                carrito(context, carro, total);
+              },
+            ),
+          ]),
       backgroundColor: Colors.orange[200],
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('platillos').snapshots(),
@@ -109,8 +127,11 @@ class _MenuPageState extends State<MenuPage> {
                                     color: Colors.white24,
                                     height: 10,
                                     onPressed: () {
-                                      precio = document['Precio'];
-                                      total += precio;
+                                      converter = document['Precio'];
+                                      precio = int.parse(converter);
+                                      va += precio;
+                                      total = va;
+                                      print(total);
 
                                       carri = document['Nombre'];
                                       carro += carri + "\n";
@@ -232,7 +253,7 @@ class _MenuPageState extends State<MenuPage> {
   }
 }
 
-void carrito(BuildContext context, String val) {
-  Navigator.push(
-      context, MaterialPageRoute(builder: (_) => CarritoPage(carrito: val)));
+void carrito(BuildContext context, String val, int tot) {
+  Navigator.push(context,
+      MaterialPageRoute(builder: (_) => CarritoPage(carrito: val, total: tot)));
 }
