@@ -233,7 +233,7 @@ class _DetallePageState extends State<DetallePage> {
     var firebaseUser = FirebaseAuth.instance.currentUser;
     Firebase.initializeApp();
 
-    firestoreInstance.collection(seccion).doc(firebaseUser.uid).set({
+    firestoreInstance.collection('platillos').doc(firebaseUser.uid).set({
       "Ingredientes": _ingredientes,
       "Precio": _precio,
       "Nombre": _nombre,

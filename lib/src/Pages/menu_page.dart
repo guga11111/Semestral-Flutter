@@ -18,65 +18,39 @@ dynamic newimage;
 class MenuPage extends StatelessWidget {
   final firestoreInstance = FirebaseFirestore.instance;
 
-  Future getCloudFirestoreUsers() async {
-    //assumes you have a collection called "users"
-    firestoreInstance.collection("caldos").get().then((querySnapshot) {
-      //print(querySnapshot);
-      //print("caldos: results: length: " + querySnapshot.docs.length.toString());
-      querySnapshot.docs.forEach((value) {
-        //print("caldos: results: value");
-        //print(value.data());
-        nombre = value['Nombre'];
-        precio = value['Precio'];
-        ingredientes = value['Ingredientes'];
-        img = value['Img'];
-
-        newimage = Base64Decoder().convert(img);
-
-        Image.memory(newimage);
-      });
-    }).catchError((onError) {
-      print("getCloudFirestoreUsers: ERROR");
-      print(onError);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    getCloudFirestoreUsers();
-    return new Container(
-        color: Colors.orange[200],
-        child: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('caldos').snapshots(),
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (!snapshot.hasData) {
-              return Text('no value');
-            }
-            return ListView(
-              children: snapshot.data.docs.map((document) {
-                newimage = Base64Decoder().convert(document['Img']);
+    return new Scaffold(
+      backgroundColor: Colors.orange[200],
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('platillos').snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return Text('no value');
+          }
+          return ListView(
+            children: snapshot.data.docs.map((document) {
+              newimage = Base64Decoder().convert(document['Img']);
+              //return Text(document['Nombre']);
+              return Container(
+                  color: Colors.white,
+                  padding: EdgeInsets.all(6.0),
+                  margin: EdgeInsets.only(left: 30, right: 30, top: 15),
+                  child: Row(
+                    children: <Widget>[
+                      Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 130),
+                          ),
+                          Image.memory(
+                            newimage,
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
 
-                //return Text(document['Nombre']);
-                return Container(
-                    color: Colors.white,
-                    padding: EdgeInsets.all(6.0),
-                    margin: EdgeInsets.only(left: 30, right: 30, top: 15),
-                    child: Row(
-                      children: <Widget>[
-                        Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 130),
-                            ),
-                            Image.memory(
-                              newimage,
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                            ),
-
-                            /* Container(
+                          /* Container(
                             padding: EdgeInsets.all(20.0),
                             width: 100,
                             height: 100,
@@ -88,140 +62,159 @@ class MenuPage extends StatelessWidget {
                                   image: new AssetImage(
                                       'lib/src/images/pozole_acapulco.jpg')),
                             )), */
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '   ' + document['Nombre'],
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                        color: Colors.redAccent,
-                                        decoration: TextDecoration.none),
-                                  ),
-                                  Text(
-                                    '   ' + document['Precio'],
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 16,
-                                        color: Colors.black,
-                                        decoration: TextDecoration.none),
-                                  ),
-                                  Text(
-                                    '   ' + document['Ingredientes'],
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                        color: Colors.black,
-                                        decoration: TextDecoration.none),
-                                  ),
-                                  FlatButton(
-                                      child: Text('Agregar al carrito'),
-                                      textColor: Colors.orange[400],
-                                      color: Colors.white24,
-                                      height: 10,
-                                      onPressed: () {
-                                        //_navigateToNextScreen(context);
-                                      })
-                                ],
-                              ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            constraints: BoxConstraints(maxWidth: 180),
+                            padding: EdgeInsets.all(0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  document['Nombre'],
+                                  overflow: TextOverflow.clip,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      color: Colors.redAccent,
+                                      decoration: TextDecoration.none),
+                                ),
+                                Text(
+                                  document['Precio'] + " pesos",
+                                  overflow: TextOverflow.clip,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                      decoration: TextDecoration.none),
+                                ),
+                                Text(
+                                  document['Ingredientes'],
+                                  overflow: TextOverflow.clip,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                      decoration: TextDecoration.none),
+                                ),
+                                FlatButton(
+                                    child: Text('Agregar al carrito'),
+                                    textColor: Colors.orange[400],
+                                    color: Colors.white24,
+                                    height: 10,
+                                    onPressed: () {
+                                      //_navigateToNextScreen(context);
+                                    })
+                              ],
                             ),
-                          ],
-                        )
-                      ],
-                    ));
-              }).toList(),
-            );
-          },
-        ));
+                          ),
+                        ],
+                      )
+                    ],
+                  ));
+            }).toList(),
+          );
+        },
+      ),
+    );
   }
 
   Widget _cardCarrito(BuildContext context) {
-    final card = Container(
-        padding: EdgeInsets.all(6.0),
-        child: Row(
-          children: <Widget>[
-            Column(
-              children: [
-                //Image.memory(newimage, width: 100, height: 100),
+    final card = StreamBuilder(
+      stream: FirebaseFirestore.instance.collection('caldos').snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (!snapshot.hasData) {
+          return Text('no value');
+        }
+        return ListView(
+          children: snapshot.data.docs.map((document) {
+            newimage = Base64Decoder().convert(document['Img']);
 
-                /*  Container(
-                    padding: EdgeInsets.all(20.0),
-                    width: 100,
-                    height: 100,
-                    decoration: new BoxDecoration(
-                      //shape: BoxShape.circle,
-                      borderRadius: BorderRadius.circular(10),
-                      image: new DecorationImage(
-                          fit: BoxFit.fill,
-                          image: new AssetImage(
-                              'lib/src/images/pozole_acapulco.jpg')),
-                    )), */
-              ],
-            ),
-            Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '   ' + nombre,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            color: Colors.redAccent),
-                      ),
-                      Text(
-                        '   ' + precio,
-                        style: TextStyle(
-                            fontWeight: FontWeight.normal, fontSize: 16),
-                      ),
-                      Text(
-                        '   ' + ingredientes,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
-                      ),
-                      FlatButton(
-                          child: Text('Agregar al carrito'),
-                          textColor: Colors.orange[400],
-                          color: Colors.white24,
-                          height: 10,
-                          onPressed: () {
-                            //_navigateToNextScreen(context);
-                          })
-                    ],
-                  ),
-                ),
-              ],
-            )
-          ],
-        ));
-    return Container(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20.0),
-        child: card,
-      ),
-      padding: EdgeInsets.only(left: 10, right: 10),
-      margin: EdgeInsets.only(left: 30, right: 30, top: 15),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20.0),
-          border: Border.all(width: 1),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Colors.black26,
-                blurRadius: 10,
-                spreadRadius: 2,
-                offset: Offset(2.0, 14.0))
-          ]),
+            //return Text(document['Nombre']);
+            return Container(
+                color: Colors.white,
+                padding: EdgeInsets.all(6.0),
+                margin: EdgeInsets.only(left: 30, right: 30, top: 15),
+                child: Row(
+                  children: <Widget>[
+                    Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 130),
+                        ),
+                        Image.memory(
+                          newimage,
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
+
+                        /* Container(
+                            padding: EdgeInsets.all(20.0),
+                            width: 100,
+                            height: 100,
+                            decoration: new BoxDecoration(
+                              //shape: BoxShape.circle,
+                              borderRadius: BorderRadius.circular(10),
+                              image: new DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: new AssetImage(
+                                      'lib/src/images/pozole_acapulco.jpg')),
+                            )), */
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '   ' + document['Nombre'],
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    color: Colors.redAccent,
+                                    decoration: TextDecoration.none),
+                              ),
+                              Text(
+                                '   ' + document['Precio'],
+                                style: TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                    decoration: TextDecoration.none),
+                              ),
+                              Text(
+                                '   ' + document['Ingredientes'],
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                    decoration: TextDecoration.none),
+                              ),
+                              FlatButton(
+                                  child: Text('Agregar al carrito'),
+                                  textColor: Colors.orange[400],
+                                  color: Colors.white24,
+                                  height: 10,
+                                  onPressed: () {
+                                    //_navigateToNextScreen(context);
+                                  })
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ));
+          }).toList(),
+        );
+      },
     );
   }
 }
