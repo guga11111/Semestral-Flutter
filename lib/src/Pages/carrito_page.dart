@@ -95,45 +95,47 @@ class _CarritoPageState extends State<CarritoPage> {
         child: Row(
           children: <Widget>[
             Column(
-              children: [
-                Container(
-                    padding: EdgeInsets.all(50.0),
-                    width: 100,
-                    height: 100,
-                    decoration: new BoxDecoration(
-                      //shape: BoxShape.circle,
-                      borderRadius: BorderRadius.circular(10),
-                      image: new DecorationImage(
-                          fit: BoxFit.fill,
-                          image: new AssetImage(
-                              'lib/src/images/pozole_acapulco.jpg')),
-                    )),
-              ],
+              children: [],
             ),
             Column(
               children: [
                 Container(
-                  padding: EdgeInsets.all(0),
+                  constraints: BoxConstraints(maxWidth: 160),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '   ' + carrito,
+                        'Productos',
+                        overflow: TextOverflow.clip,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.black,
+                            decoration: TextDecoration.none),
+                      ),
+                      Text(
+                        carrito,
+                        overflow: TextOverflow.clip,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                             color: Colors.redAccent),
                       ),
                       Text(
-                        '   200 Pesos',
+                        'Total',
+                        overflow: TextOverflow.clip,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.black,
+                            decoration: TextDecoration.none),
+                      ),
+                      Text(
+                        '200 Pesos',
+                        overflow: TextOverflow.clip,
                         style: TextStyle(
                             fontWeight: FontWeight.normal, fontSize: 16),
                       ),
-                      Text(
-                        '   Ingredientes',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
-                      )
                     ],
                   ),
                 ),
