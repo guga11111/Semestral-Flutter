@@ -20,13 +20,17 @@ int total = 0, precio, va;
 dynamic newimage;
 
 class MenuPage extends StatefulWidget {
+  final String user;
+  const MenuPage({Key key, this.user}) : super(key: key);
   @override
-  _MenuPageState createState() => _MenuPageState();
+  _MenuPageState createState() => _MenuPageState(user: this.user);
 }
 
 class _MenuPageState extends State<MenuPage> {
+  String user;
   final firestoreInstance = FirebaseFirestore.instance;
-
+  _MenuPageState createState() => _MenuPageState();
+  _MenuPageState({this.user});
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -55,7 +59,7 @@ class _MenuPageState extends State<MenuPage> {
                         Text("Tienes que agregar algo al carrito para acceder"),
                   ));
                 } else {
-                  carrito(context, carro, total);
+                  carrito(context, carro, total, user);
                 }
                 //ScaffoldMessenger.of(context).showSnackBar(
                 //  const SnackBar(content: Text('This is a snackbar')));
@@ -169,7 +173,9 @@ class _MenuPageState extends State<MenuPage> {
   }
 }
 
-void carrito(BuildContext context, String val, int tot) {
-  Navigator.push(context,
-      MaterialPageRoute(builder: (_) => CarritoPage(carrito: val, total: tot)));
+void carrito(BuildContext context, String val, int tot, String us) {
+  Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (_) => CarritoPage(carrito: val, total: tot, user: us)));
 }

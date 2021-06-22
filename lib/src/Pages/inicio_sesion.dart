@@ -132,10 +132,10 @@ class _InicioSesion extends State<InicioPage> {
             .push(MaterialPageRoute(builder: (context) => SeccionesPage()));
         print("ADMIN");
       } else {
-        user = currentUser.uid;
+        //user = currentUser.uid;
         print(currentUser.uid);
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => MenuPage()));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => MenuPage(user: currentUser.email)));
         print("NORMAL");
       }
     } on FirebaseAuthException catch (e) {

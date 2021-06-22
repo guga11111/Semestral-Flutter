@@ -3,15 +3,18 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:semestral_flutter/src/Pages/lista_page.dart';
 import 'package:semestral_flutter/src/Pages/menu_page.dart';
+import 'dart:math';
 
 class CarritoPage extends StatefulWidget {
   final String carrito;
   final int total;
+  final String user;
 
-  const CarritoPage({Key key, this.carrito, this.total}) : super(key: key);
+  const CarritoPage({Key key, this.carrito, this.total, this.user})
+      : super(key: key);
   @override
-  _CarritoPageState createState() =>
-      _CarritoPageState(carrito: this.carrito, total: this.total);
+  _CarritoPageState createState() => _CarritoPageState(
+      carrito: this.carrito, total: this.total, user: this.user);
 }
 
 class _CarritoPageState extends State<CarritoPage> {
@@ -19,7 +22,8 @@ class _CarritoPageState extends State<CarritoPage> {
   String _datos = '';
   String carrito;
   int total;
-  _CarritoPageState({this.carrito, this.total});
+  String user;
+  _CarritoPageState({this.carrito, this.total, this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -201,13 +205,13 @@ class _CarritoPageState extends State<CarritoPage> {
     Firebase.initializeApp();
 
     //firebaseUser.uid
-
-    firestoreInstance.collection('pedidos').doc(carrito).set({
+    var random = getRandomString(5);
+    firestoreInstance.collection('pedidos' + user).doc(random).set({
       "Productos": 'carrito',
       "Total": total,
       "Direccion": _direccion,
       "Notas de envio": _datos,
-      "Nombre": 'IO',
+      "Nombre": random
     }).then((_) {
       print("success!");
       ScaffoldMessenger.of(context)
@@ -217,3 +221,8 @@ class _CarritoPageState extends State<CarritoPage> {
     });
   }
 }
+
+const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+Random _rnd = Random();
+String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+    length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
