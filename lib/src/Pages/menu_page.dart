@@ -26,6 +26,16 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      appBar: AppBar(title: const Text('Menú'), actions: <Widget>[
+        IconButton(
+          icon: const Icon(Icons.add_alert),
+          tooltip: 'Show Snackbar',
+          onPressed: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('This is a snackbar')));
+          },
+        ),
+      ]),
       backgroundColor: Colors.orange[200],
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('platillos').snapshots(),
