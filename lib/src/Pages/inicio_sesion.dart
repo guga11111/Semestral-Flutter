@@ -16,6 +16,7 @@ class InicioPage extends StatefulWidget {
 class _InicioSesion extends State<InicioPage> {
   String _email = '';
   String _pass = '';
+  String user = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,6 +132,8 @@ class _InicioSesion extends State<InicioPage> {
             .push(MaterialPageRoute(builder: (context) => SeccionesPage()));
         print("ADMIN");
       } else {
+        user = currentUser.uid;
+        print(currentUser.uid);
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => MenuPage()));
         print("NORMAL");

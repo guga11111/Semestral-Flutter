@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:semestral_flutter/src/Pages/lista_page.dart';
+import 'package:semestral_flutter/src/Pages/menu_page.dart';
 
 class CarritoPage extends StatefulWidget {
   final String carrito;
@@ -12,6 +15,8 @@ class CarritoPage extends StatefulWidget {
 }
 
 class _CarritoPageState extends State<CarritoPage> {
+  String _direccion = '';
+  String _datos = '';
   String carrito;
   int total;
   _CarritoPageState({this.carrito, this.total});
@@ -63,6 +68,9 @@ class _CarritoPageState extends State<CarritoPage> {
                     border: UnderlineInputBorder(),
                     labelText: 'Dirección',
                   ),
+                  onChanged: (valor) => setState(() {
+                    _direccion = valor;
+                  }),
                 ),
               ),
               ListTile(
@@ -73,6 +81,9 @@ class _CarritoPageState extends State<CarritoPage> {
                     border: UnderlineInputBorder(),
                     labelText: 'Notas de envío',
                   ),
+                  onChanged: (valor) => setState(() {
+                    _datos = valor;
+                  }),
                 ),
               ),
               FlatButton(
@@ -81,8 +92,7 @@ class _CarritoPageState extends State<CarritoPage> {
                   textColor: Colors.white,
                   height: 40,
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ListaPedidos()));
+                    collection();
                   }),
             ],
           ),
@@ -183,5 +193,27 @@ class _CarritoPageState extends State<CarritoPage> {
                 offset: Offset(2.0, 14.0))
           ]),
     );
+  }
+
+  collection() {
+    Firebase.initializeApp();
+    final firestoreInstance = FirebaseFirestore.instance;
+    Firebase.initializeApp();
+
+    //firebaseUser.uid
+
+    firestoreInstance.collection('pedidos').doc(carrito).set({
+      "Productos": 'carrito',
+      "Total": total,
+      "Direccion": _direccion,
+      "Notas de envio": _datos,
+      "Nombre": 'IO',
+    }).then((_) {
+      print("success!");
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Se asgregó el pedido")));
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => MenuPage()));
+    });
   }
 }

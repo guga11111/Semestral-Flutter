@@ -39,7 +39,7 @@ class _MenuPageState extends State<MenuPage> {
               tooltip: 'Cerrar sesión',
               onPressed: () async {
                 carro = "";
-                converter = "";
+                total = 0;
                 await FirebaseAuth.instance.signOut();
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => InicioPage()));
@@ -49,9 +49,16 @@ class _MenuPageState extends State<MenuPage> {
               icon: const Icon(Icons.add_shopping_cart),
               tooltip: 'Carrito',
               onPressed: () {
+                if (carro == "") {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content:
+                        Text("Tienes que agregar algo al carrito para acceder"),
+                  ));
+                } else {
+                  carrito(context, carro, total);
+                }
                 //ScaffoldMessenger.of(context).showSnackBar(
                 //  const SnackBar(content: Text('This is a snackbar')));
-                carrito(context, carro, total);
               },
             ),
           ]),
@@ -129,8 +136,13 @@ class _MenuPageState extends State<MenuPage> {
                                     onPressed: () {
                                       converter = document['Precio'];
                                       precio = int.parse(converter);
-                                      va += precio;
-                                      total = va;
+                                      if (total != null) {
+                                        total = precio + total;
+                                      }
+                                      if (total == null) {
+                                        total = 0;
+                                      }
+
                                       print(total);
 
                                       carri = document['Nombre'];
@@ -153,102 +165,6 @@ class _MenuPageState extends State<MenuPage> {
           );
         },
       ),
-    );
-  }
-
-  Widget _cardCarrito(BuildContext context) {
-    final card = StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('caldos').snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (!snapshot.hasData) {
-          return Text('no value');
-        }
-        return ListView(
-          children: snapshot.data.docs.map((document) {
-            newimage = Base64Decoder().convert(document['Img']);
-
-            //return Text(document['Nombre']);
-            return Container(
-                color: Colors.white,
-                padding: EdgeInsets.all(6.0),
-                margin: EdgeInsets.only(left: 30, right: 30, top: 15),
-                child: Row(
-                  children: <Widget>[
-                    Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 130),
-                        ),
-                        Image.memory(
-                          newimage,
-                          width: 100,
-                          height: 100,
-                          fit: BoxFit.cover,
-                        ),
-
-                        /* Container(
-                            padding: EdgeInsets.all(20.0),
-                            width: 100,
-                            height: 100,
-                            decoration: new BoxDecoration(
-                              //shape: BoxShape.circle,
-                              borderRadius: BorderRadius.circular(10),
-                              image: new DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: new AssetImage(
-                                      'lib/src/images/pozole_acapulco.jpg')),
-                            )), */
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '   ' + document['Nombre'],
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                    color: Colors.redAccent,
-                                    decoration: TextDecoration.none),
-                              ),
-                              Text(
-                                '   ' + document['Precio'],
-                                style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                    decoration: TextDecoration.none),
-                              ),
-                              Text(
-                                '   ' + document['Ingredientes'],
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                    decoration: TextDecoration.none),
-                              ),
-                              FlatButton(
-                                  child: Text('Agregar al carrito'),
-                                  textColor: Colors.orange[400],
-                                  color: Colors.white24,
-                                  height: 10,
-                                  onPressed: () {
-                                    //_navigateToNextScreen(context);
-                                  })
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ));
-          }).toList(),
-        );
-      },
     );
   }
 }
