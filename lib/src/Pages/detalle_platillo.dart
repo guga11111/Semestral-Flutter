@@ -14,6 +14,7 @@ import 'package:image_picker/image_picker.dart';
 //import 'package:semestral_flutter/src/Pages/carrito_page.dart';
 import 'package:semestral_flutter/src/Pages/lista_page.dart';
 import 'package:semestral_flutter/src/Pages/registro_page.dart';
+import 'package:semestral_flutter/src/Pages/secciones_page.dart';
 
 class DetallePage extends StatefulWidget {
   final String seccion;
@@ -233,7 +234,9 @@ class _DetallePageState extends State<DetallePage> {
     var firebaseUser = FirebaseAuth.instance.currentUser;
     Firebase.initializeApp();
 
-    firestoreInstance.collection('platillos').doc(firebaseUser.uid).set({
+    //firebaseUser.uid
+
+    firestoreInstance.collection('platillos').doc(_nombre).set({
       "Ingredientes": _ingredientes,
       "Precio": _precio,
       "Nombre": _nombre,
@@ -241,6 +244,8 @@ class _DetallePageState extends State<DetallePage> {
       "Img": img,
     }).then((_) {
       print("success!");
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => SeccionesPage()));
     });
   }
 }
