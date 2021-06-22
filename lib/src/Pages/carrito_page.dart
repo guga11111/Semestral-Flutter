@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:semestral_flutter/src/Pages/lista_page.dart';
 
-class CarritoPage extends StatelessWidget {
+class CarritoPage extends StatefulWidget {
+  final String carrito;
+  const CarritoPage({Key key, this.carrito}) : super(key: key);
+  @override
+  _CarritoPageState createState() => _CarritoPageState(carrito: this.carrito);
+}
+
+class _CarritoPageState extends State<CarritoPage> {
+  String carrito;
+  _CarritoPageState({this.carrito});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,7 +118,7 @@ class CarritoPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '   Pozole',
+                        '   ' + carrito,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,

@@ -15,7 +15,12 @@ Future main() async {
 String nombre, precio, img, ingredientes;
 dynamic newimage;
 
-class MenuPage extends StatelessWidget {
+class MenuPage extends StatefulWidget {
+  @override
+  _MenuPageState createState() => _MenuPageState();
+}
+
+class _MenuPageState extends State<MenuPage> {
   final firestoreInstance = FirebaseFirestore.instance;
 
   @override
@@ -49,19 +54,6 @@ class MenuPage extends StatelessWidget {
                             height: 100,
                             fit: BoxFit.cover,
                           ),
-
-                          /* Container(
-                            padding: EdgeInsets.all(20.0),
-                            width: 100,
-                            height: 100,
-                            decoration: new BoxDecoration(
-                              //shape: BoxShape.circle,
-                              borderRadius: BorderRadius.circular(10),
-                              image: new DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: new AssetImage(
-                                      'lib/src/images/pozole_acapulco.jpg')),
-                            )), */
                         ],
                       ),
                       Column(
@@ -107,6 +99,12 @@ class MenuPage extends StatelessWidget {
                                     height: 10,
                                     onPressed: () {
                                       //_navigateToNextScreen(context);
+                                      carrito(context, document['Nombre']);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        content: Text("Agregado al carrito: " +
+                                            document['Nombre']),
+                                      ));
                                     })
                               ],
                             ),
@@ -217,4 +215,9 @@ class MenuPage extends StatelessWidget {
       },
     );
   }
+}
+
+void carrito(BuildContext context, String val) {
+  Navigator.push(
+      context, MaterialPageRoute(builder: (_) => CarritoPage(carrito: val)));
 }
