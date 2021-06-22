@@ -23,7 +23,7 @@ class MenuPage extends StatelessWidget {
     return new Scaffold(
       backgroundColor: Colors.orange[200],
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('caldos').snapshots(),
+        stream: FirebaseFirestore.instance.collection('platillos').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return Text('no value');
@@ -67,12 +67,15 @@ class MenuPage extends StatelessWidget {
                       Column(
                         children: [
                           Container(
+                            alignment: Alignment.centerLeft,
+                            constraints: BoxConstraints(maxWidth: 180),
                             padding: EdgeInsets.all(0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '   ' + document['Nombre'],
+                                  document['Nombre'],
+                                  overflow: TextOverflow.clip,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18,
@@ -80,7 +83,8 @@ class MenuPage extends StatelessWidget {
                                       decoration: TextDecoration.none),
                                 ),
                                 Text(
-                                  '   ' + document['Precio'],
+                                  document['Precio'] + " pesos",
+                                  overflow: TextOverflow.clip,
                                   style: TextStyle(
                                       fontWeight: FontWeight.normal,
                                       fontSize: 16,
@@ -88,7 +92,8 @@ class MenuPage extends StatelessWidget {
                                       decoration: TextDecoration.none),
                                 ),
                                 Text(
-                                  '   ' + document['Ingredientes'],
+                                  document['Ingredientes'],
+                                  overflow: TextOverflow.clip,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
