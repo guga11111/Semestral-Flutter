@@ -46,6 +46,7 @@ class _MenuPageState extends State<MenuPage> {
       appBar: AppBar(
           title: const Text('Menú'),
           backgroundColor: Colors.orange[400],
+          automaticallyImplyLeading: false,
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.logout),
