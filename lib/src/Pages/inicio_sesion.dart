@@ -141,8 +141,12 @@ class _InicioSesion extends State<InicioPage> {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Email No existe")));
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Contraseña incorrecta")));
       } else if (e != null) {
         print(e.code);
       } else {
