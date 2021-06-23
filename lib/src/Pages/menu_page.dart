@@ -90,7 +90,7 @@ class _MenuPageState extends State<MenuPage> {
         stream: FirebaseFirestore.instance.collection('platillos').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
-            return Text('no value');
+            return Text('');
           }
           return ListView(
             children: snapshot.data.docs.map((document) {

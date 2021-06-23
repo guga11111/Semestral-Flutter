@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:semestral_flutter/src/Pages/carrito_page.dart';
+import 'package:semestral_flutter/src/Pages/detalle_platillo.dart';
 import 'package:semestral_flutter/src/Pages/lista_page.dart';
 
 Future main() async {
@@ -16,12 +17,16 @@ String nombre;
 dynamic newimage;
 
 class EliminarPage extends StatefulWidget {
+  final String seccion;
+  const EliminarPage({Key key, this.seccion}) : super(key: key);
   @override
-  _MenuPageState createState() => _MenuPageState();
+  _MenuPageState createState() => _MenuPageState(seccion: this.seccion);
 }
 
 class _MenuPageState extends State<EliminarPage> {
   final firestoreInstance = FirebaseFirestore.instance;
+  String seccion;
+  _MenuPageState({this.seccion});
 
   CollectionReference users =
       FirebaseFirestore.instance.collection('platillos');
@@ -38,11 +43,28 @@ class _MenuPageState extends State<EliminarPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       backgroundColor: Colors.orange[200],
+      appBar: AppBar(
+          title: Text("$seccion"),
+          backgroundColor: Colors.orange[400],
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.add),
+              tooltip: 'Carrito',
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Detalle producto')));
+                detalle(context, seccion);
+              },
+            ),
+          ]),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('platillos').snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('platillos')
+            .where('Seccion', isEqualTo: seccion)
+            .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
-            return Text('no value');
+            return Text('');
           }
           return ListView(
             children: snapshot.data.docs.map((document) {
@@ -138,7 +160,7 @@ Future<void> deleteUser() {
       .catchError((error) => print("Failed to delete user: $error"));
 }
 
-void carrito(BuildContext context, String val) {
+void detalle(BuildContext context, String val) {
   Navigator.push(
-      context, MaterialPageRoute(builder: (_) => CarritoPage(carrito: val)));
+      context, MaterialPageRoute(builder: (_) => DetallePage(seccion: val)));
 }

@@ -13,6 +13,8 @@ Future main() async {
 }
 
 String nombre;
+String id;
+
 dynamic newimage;
 
 class PedidosPage extends StatefulWidget {
@@ -31,6 +33,30 @@ class _PedidosPageState extends State<PedidosPage> {
         .delete()
         .then((value) => print("User Deleted"))
         .catchError((error) => print("Failed to delete user: $error"));
+  }
+
+  Future<void> entregado() {
+    return users
+        .doc(id)
+        .update({'Estatus': 'Entregado'})
+        .then((value) => print("Estatus actualizado"))
+        .catchError((error) => print("Actualización fallida: $error"));
+  }
+
+  Future<void> cancelado() {
+    return users
+        .doc(id)
+        .update({'Estatus': 'Cancelado'})
+        .then((value) => print("Estatus actualizado"))
+        .catchError((error) => print("Actualización fallida: $error"));
+  }
+
+  Future<void> proceso() {
+    return users
+        .doc(id)
+        .update({'Estatus': 'En proceso'})
+        .then((value) => print("Estatus actualizado"))
+        .catchError((error) => print("Actualización fallida: $error"));
   }
 
   @override
@@ -71,7 +97,7 @@ class _PedidosPageState extends State<PedidosPage> {
                         children: [
                           Container(
                             alignment: Alignment.centerLeft,
-                            constraints: BoxConstraints(maxWidth: 180),
+                            constraints: BoxConstraints(maxWidth: 200),
                             padding: EdgeInsets.all(0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -170,7 +196,7 @@ class _PedidosPageState extends State<PedidosPage> {
                                       decoration: TextDecoration.none),
                                 ),
                                 Text(
-                                  document['Estatus'].toString() + "\n",
+                                  document['Estatus'].toString() + "",
                                   overflow: TextOverflow.clip,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -178,19 +204,86 @@ class _PedidosPageState extends State<PedidosPage> {
                                       color: Colors.black,
                                       decoration: TextDecoration.none),
                                 ),
-                                /* FlatButton(
-                                    child: Text('Eliminar'),
-                                    textColor: Colors.orange[400],
-                                    color: Colors.white24,
-                                    height: 10,
-                                    onPressed: () {
-                                      nombre = document['Nombre'];
-                                      //_navigateToNextScreen(context);
-                                      deleteUser();
-                                    }) */
+                                Divider(
+                                  thickness: 5,
+                                ),
+                                Text(
+                                  "Dirección",
+                                  overflow: TextOverflow.clip,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                      decoration: TextDecoration.none),
+                                ),
+                                Text(
+                                  document['Direccion'].toString(),
+                                  overflow: TextOverflow.clip,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                      decoration: TextDecoration.none),
+                                ),
+                                Divider(
+                                  thickness: 5,
+                                ),
+                                Text(
+                                  "Notas de envio",
+                                  overflow: TextOverflow.clip,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                      decoration: TextDecoration.none),
+                                ),
+                                Text(
+                                  document['Notas de envio'].toString(),
+                                  overflow: TextOverflow.clip,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                      decoration: TextDecoration.none),
+                                ),
+                                Divider(
+                                  thickness: 5,
+                                ),
+                                Row(children: <Widget>[
+                                  FlatButton(
+                                      child: Text('Entregado'),
+                                      textColor: Colors.green[400],
+                                      color: Colors.white24,
+                                      height: 10,
+                                      onPressed: () {
+                                        id = document['Id'];
+                                        //_navigateToNextScreen(context);
+                                        entregado();
+                                      }),
+                                  FlatButton(
+                                      child: Text('Cancelado'),
+                                      textColor: Colors.red[400],
+                                      color: Colors.white24,
+                                      height: 10,
+                                      onPressed: () {
+                                        id = document['Id'];
+                                        //_navigateToNextScreen(context);
+                                        cancelado();
+                                      }),
+                                ])
                               ],
                             ),
                           ),
+                          FlatButton(
+                              child: Text('En proceso'),
+                              textColor: Colors.orange[400],
+                              color: Colors.white24,
+                              height: 10,
+                              onPressed: () {
+                                id = document['Id'];
+                                //_navigateToNextScreen(context);
+                                proceso();
+                              }),
                         ],
                       )
                     ],

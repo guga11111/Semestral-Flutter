@@ -153,14 +153,6 @@ class _SeccionesPageState extends State<SeccionesPage> {
               Row(
                 children: <Widget>[
                   FlatButton(
-                      child: Text('Menu'),
-                      textColor: Colors.black,
-                      height: 40,
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => EliminarPage()));
-                      }),
-                  FlatButton(
                       child: Text('Pedidos'),
                       textColor: Colors.black,
                       height: 40,
@@ -196,46 +188,50 @@ class _SeccionesPageState extends State<SeccionesPage> {
 
   void _caldos(BuildContext context) {
     Navigator.push(context,
-        MaterialPageRoute(builder: (_) => DetallePage(seccion: 'caldos')));
+        MaterialPageRoute(builder: (_) => EliminarPage(seccion: 'caldos')));
   }
 
   void _platofuerte(BuildContext context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (_) => DetallePage(seccion: 'platofuerte')));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) => EliminarPage(seccion: 'platofuerte')));
   }
 
   void _postres(BuildContext context) {
     Navigator.push(context,
-        MaterialPageRoute(builder: (_) => DetallePage(seccion: 'postres')));
+        MaterialPageRoute(builder: (_) => EliminarPage(seccion: 'Postres')));
   }
 
   void _especiales(BuildContext context) {
     Navigator.push(context,
-        MaterialPageRoute(builder: (_) => DetallePage(seccion: 'especiales')));
+        MaterialPageRoute(builder: (_) => EliminarPage(seccion: 'Especiales')));
   }
 
   void _rapida(BuildContext context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (_) => DetallePage(seccion: 'rapida')));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) => EliminarPage(seccion: 'Comida Rapida')));
   }
 
   void _alcohol(BuildContext context) {
     Navigator.push(context,
-        MaterialPageRoute(builder: (_) => DetallePage(seccion: 'alcohol')));
+        MaterialPageRoute(builder: (_) => EliminarPage(seccion: 'Alcohol')));
   }
 
   void _refrescos(BuildContext context) {
     Navigator.push(context,
-        MaterialPageRoute(builder: (_) => DetallePage(seccion: 'refrescos')));
+        MaterialPageRoute(builder: (_) => EliminarPage(seccion: 'Refrescos')));
   }
 
   void _souvenirs(BuildContext context) {
     Navigator.push(context,
-        MaterialPageRoute(builder: (_) => DetallePage(seccion: 'souvenirs')));
+        MaterialPageRoute(builder: (_) => EliminarPage(seccion: 'souvenirs')));
   }
 
   void _navigateToNextScreen(BuildContext context) {
     Navigator.push(context,
-        MaterialPageRoute(builder: (_) => DetallePage(seccion: 'prueba')));
+        MaterialPageRoute(builder: (_) => EliminarPage(seccion: 'prueba')));
   }
 }

@@ -11,6 +11,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:semestral_flutter/src/Pages/eliminar_page.dart';
 //import 'package:semestral_flutter/src/Pages/carrito_page.dart';
 import 'package:semestral_flutter/src/Pages/lista_page.dart';
 import 'package:semestral_flutter/src/Pages/registro_page.dart';
@@ -244,8 +245,10 @@ class _DetallePageState extends State<DetallePage> {
       "Img": img,
     }).then((_) {
       print("success!");
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => SeccionesPage()));
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => EliminarPage(
+                seccion: seccion,
+              )));
     });
   }
 }
