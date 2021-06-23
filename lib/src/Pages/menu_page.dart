@@ -99,7 +99,7 @@ class _MenuPageState extends State<MenuPage> {
               return Container(
                   color: Colors.white,
                   padding: EdgeInsets.all(6.0),
-                  margin: EdgeInsets.only(left: 30, right: 30, top: 15),
+                  margin: EdgeInsets.only(left: 18, right: 18, top: 15),
                   child: Row(
                     children: <Widget>[
                       Column(

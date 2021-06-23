@@ -124,8 +124,8 @@ class _SeccionesPageState extends State<SeccionesPage> {
         ]));
 
     return Container(
-      padding: EdgeInsets.only(left: 2, right: 10),
-      margin: EdgeInsets.only(left: 30, right: 30, top: 0),
+      padding: EdgeInsets.only(left: 5, right: 5),
+      margin: EdgeInsets.only(left: 1, right: 1, top: 0),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20.0),
         child: card,

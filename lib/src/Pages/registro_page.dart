@@ -138,8 +138,8 @@ class _RegistroPageState extends State<RegistroPage> {
         ]));
 
     return Container(
-      margin: const EdgeInsets.all(
-          30), //Guga, si no te sale centrado es por esto xd
+      margin: const EdgeInsets.all(30),
+      padding: const EdgeInsets.only(top: 30.0),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20.0),
         child: card,
