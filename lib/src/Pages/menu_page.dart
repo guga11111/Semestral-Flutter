@@ -154,6 +154,7 @@ class _MenuPageState extends State<MenuPage> {
                                       }
                                       if (total == null) {
                                         total = 0;
+                                        total = precio + total;
                                       }
 
                                       print(total);
@@ -165,6 +166,7 @@ class _MenuPageState extends State<MenuPage> {
                                       }
                                       if (carro == null) {
                                         carro = "";
+                                        carro += carri + "\n";
                                       }
 
                                       //_navigateToNextScreen(context);
