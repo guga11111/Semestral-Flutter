@@ -220,7 +220,8 @@ class _CarritoPageState extends State<CarritoPage> {
       "Direccion": _direccion,
       "Notas de envio": _datos,
       "Id": id,
-      "Usuario": user
+      "Usuario": user,
+      "Estatus": "En proceso"
     }).then((_) {
       print("success!");
       ScaffoldMessenger.of(context)
