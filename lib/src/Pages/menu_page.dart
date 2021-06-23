@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:semestral_flutter/src/Pages/carrito_page.dart';
 import 'package:semestral_flutter/src/Pages/lista_page.dart';
+import 'package:semestral_flutter/src/Pages/userpedidos_page.dart';
 
 import 'inicio_sesion.dart';
 
@@ -57,6 +58,14 @@ class _MenuPageState extends State<MenuPage> {
                 await FirebaseAuth.instance.signOut();
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => InicioPage()));
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.history_edu),
+              tooltip: 'Pedidos',
+              onPressed: () async {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => PedidosUserPage(user: user)));
               },
             ),
             IconButton(

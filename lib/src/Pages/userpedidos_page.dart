@@ -15,13 +15,19 @@ Future main() async {
 String nombre;
 dynamic newimage;
 
-class PedidosPage extends StatefulWidget {
+class PedidosUserPage extends StatefulWidget {
+  final String user;
+
+  const PedidosUserPage({Key key, this.user}) : super(key: key);
   @override
-  _PedidosPageState createState() => _PedidosPageState();
+  _PedidosUserPageState createState() => _PedidosUserPageState(user: this.user);
 }
 
-class _PedidosPageState extends State<PedidosPage> {
+class _PedidosUserPageState extends State<PedidosUserPage> {
   final firestoreInstance = FirebaseFirestore.instance;
+  String user;
+
+  _PedidosUserPageState({this.user});
 
   CollectionReference users = FirebaseFirestore.instance.collection('pedidos');
 
@@ -53,7 +59,10 @@ class _PedidosPageState extends State<PedidosPage> {
       ),
       backgroundColor: Colors.orange[200],
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('pedidos').snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('pedidos')
+            .where('Usuario', isEqualTo: user)
+            .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return Text('no value');
@@ -71,7 +80,7 @@ class _PedidosPageState extends State<PedidosPage> {
                         children: [
                           Container(
                             alignment: Alignment.centerLeft,
-                            constraints: BoxConstraints(maxWidth: 180),
+                            constraints: BoxConstraints(maxWidth: 200),
                             padding: EdgeInsets.all(0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
