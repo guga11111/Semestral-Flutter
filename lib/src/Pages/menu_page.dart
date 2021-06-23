@@ -159,8 +159,13 @@ class _MenuPageState extends State<MenuPage> {
                                       print(total);
                                       print(carro);
                                       carri = document['Nombre'];
-                                      carro = carro + carri + "\n";
-                                      print(carro);
+                                      if (carro != null) {
+                                        carro += carri + "\n";
+                                        print(carro);
+                                      }
+                                      if (carro == null) {
+                                        carro = "";
+                                      }
 
                                       //_navigateToNextScreen(context);
                                       ScaffoldMessenger.of(context)
