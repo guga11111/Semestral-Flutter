@@ -25,7 +25,7 @@ class _CarritoPageState extends State<CarritoPage> {
   int total;
 
   String id;
-  _CarritoPageState({this.carrito, this.total, this.user, this.change});
+  _CarritoPageState({this.carrito, this.total, this.user});
 
   @override
   Widget build(BuildContext context) {
