@@ -21,9 +21,12 @@ class _CarritoPageState extends State<CarritoPage> {
   String _direccion = '';
   String _datos = '';
   String carrito;
-  int total;
   String user;
-  _CarritoPageState({this.carrito, this.total, this.user});
+  int total;
+  int change;
+
+  String id;
+  _CarritoPageState({this.carrito, this.total, this.user, this.change});
 
   @override
   Widget build(BuildContext context) {
@@ -206,18 +209,26 @@ class _CarritoPageState extends State<CarritoPage> {
 
     //firebaseUser.uid
     var random = getRandomString(5);
-    firestoreInstance.collection('pedidos' + user).doc(random).set({
-      "Productos": 'carrito',
+    id = random;
+    print(id);
+    print(user);
+    print(_direccion);
+    print(_datos);
+
+    firestoreInstance.collection('pedidos' + user).doc(id).set({
+      "Productos": carrito,
       "Total": total,
       "Direccion": _direccion,
       "Notas de envio": _datos,
-      "Nombre": random
+      "Nombre": id
     }).then((_) {
       print("success!");
+      change = 1;
+      print(change);
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Se asgregó el pedido")));
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => MenuPage()));
+          .showSnackBar(SnackBar(content: Text("Se agregó el pedido")));
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => MenuPage(user: user, carro: "", total: 0)));
     });
   }
 }

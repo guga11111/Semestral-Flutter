@@ -21,16 +21,25 @@ dynamic newimage;
 
 class MenuPage extends StatefulWidget {
   final String user;
-  const MenuPage({Key key, this.user}) : super(key: key);
+  final String carro;
+
+  final int total;
+
+  const MenuPage({Key key, this.user, this.total, this.carro})
+      : super(key: key);
   @override
-  _MenuPageState createState() => _MenuPageState(user: this.user);
+  _MenuPageState createState() =>
+      _MenuPageState(user: this.user, total: this.total, carro: this.carro);
 }
 
 class _MenuPageState extends State<MenuPage> {
   String user;
+  String carro;
+
+  int total;
   final firestoreInstance = FirebaseFirestore.instance;
   _MenuPageState createState() => _MenuPageState();
-  _MenuPageState({this.user});
+  _MenuPageState({this.user, this.total, this.carro});
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -148,7 +157,7 @@ class _MenuPageState extends State<MenuPage> {
                                       }
 
                                       print(total);
-
+                                      print(carro);
                                       carri = document['Nombre'];
                                       carro += carri + "\n";
                                       //_navigateToNextScreen(context);

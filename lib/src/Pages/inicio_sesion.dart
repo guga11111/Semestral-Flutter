@@ -145,6 +145,9 @@ class _InicioSesion extends State<InicioPage> {
         print('Wrong password provided for that user.');
       } else if (e != null) {
         print(e.code);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Email o contraseña incorrecta")));
       }
     }
   }
