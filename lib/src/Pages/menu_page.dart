@@ -62,7 +62,7 @@ class _MenuPageState extends State<MenuPage> {
               icon: const Icon(Icons.add_shopping_cart),
               tooltip: 'Carrito',
               onPressed: () {
-                if (carro == "") {
+                if (carro == "" || carro == null) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content:
                         Text("Tienes que agregar algo al carrito para acceder"),
