@@ -139,7 +139,8 @@ class _InicioSesion extends State<InicioPage> {
         print("NORMAL");
       }
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
+      if (e.code ==
+          'There is no user record corresponding to this identifier. The user may have been deleted.') {
         print('No user found for that email.');
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text("Email No existe")));

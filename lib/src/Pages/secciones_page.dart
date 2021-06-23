@@ -5,6 +5,7 @@ import 'package:semestral_flutter/src/Pages/detalle_platillo.dart';
 import 'package:semestral_flutter/src/Pages/eliminar_page.dart';
 import 'package:semestral_flutter/src/Pages/inicio_sesion.dart';
 import 'package:semestral_flutter/src/Pages/menu_page.dart';
+import 'package:semestral_flutter/src/Pages/pedidos_page.dart';
 import 'package:semestral_flutter/src/Pages/registro_page.dart';
 
 class SeccionesPage extends StatefulWidget {
@@ -165,7 +166,7 @@ class _SeccionesPageState extends State<SeccionesPage> {
                       height: 40,
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => CarritoPage()));
+                            builder: (context) => PedidosPage()));
                       }),
                   FlatButton(
                       child: Text('Cerrar sesión'),

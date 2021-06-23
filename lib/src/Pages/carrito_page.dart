@@ -214,12 +214,13 @@ class _CarritoPageState extends State<CarritoPage> {
     print(_direccion);
     print(_datos);
 
-    firestoreInstance.collection('pedidos' + user).doc(id).set({
+    firestoreInstance.collection('pedidos').doc(id).set({
       "Productos": carrito,
       "Total": total,
       "Direccion": _direccion,
       "Notas de envio": _datos,
-      "Nombre": id
+      "Id": id,
+      "Usuario": user
     }).then((_) {
       print("success!");
       ScaffoldMessenger.of(context)
