@@ -15,7 +15,7 @@ Future main() async {
   await Firebase.initializeApp();
 }
 
-String converter, carri = "", carro = "";
+String converter, carri = "", carro;
 int total = 0, precio, va;
 dynamic newimage;
 
@@ -35,8 +35,8 @@ class MenuPage extends StatefulWidget {
 class _MenuPageState extends State<MenuPage> {
   String user;
   String carro;
-
   int total;
+
   final firestoreInstance = FirebaseFirestore.instance;
   _MenuPageState createState() => _MenuPageState();
   _MenuPageState({this.user, this.total, this.carro});
@@ -159,7 +159,9 @@ class _MenuPageState extends State<MenuPage> {
                                       print(total);
                                       print(carro);
                                       carri = document['Nombre'];
-                                      carro += carri + "\n";
+                                      carro = carro + carri + "\n";
+                                      print(carro);
+
                                       //_navigateToNextScreen(context);
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(SnackBar(

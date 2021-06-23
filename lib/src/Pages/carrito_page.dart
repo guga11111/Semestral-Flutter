@@ -23,7 +23,6 @@ class _CarritoPageState extends State<CarritoPage> {
   String carrito;
   String user;
   int total;
-  int change;
 
   String id;
   _CarritoPageState({this.carrito, this.total, this.user, this.change});
@@ -223,8 +222,6 @@ class _CarritoPageState extends State<CarritoPage> {
       "Nombre": id
     }).then((_) {
       print("success!");
-      change = 1;
-      print(change);
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text("Se agregó el pedido")));
       Navigator.of(context).push(MaterialPageRoute(
