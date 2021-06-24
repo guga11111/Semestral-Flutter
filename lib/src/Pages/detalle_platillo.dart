@@ -135,6 +135,7 @@ class _DetallePageState extends State<DetallePage> {
               ),
               ListTile(
                 title: TextField(
+                  keyboardType: TextInputType.number,
                   obscureText: false,
                   decoration: InputDecoration(
                     border: UnderlineInputBorder(),

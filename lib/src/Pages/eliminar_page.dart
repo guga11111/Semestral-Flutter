@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:semestral_flutter/src/Pages/carrito_page.dart';
 import 'package:semestral_flutter/src/Pages/detalle_platillo.dart';
 import 'package:semestral_flutter/src/Pages/lista_page.dart';
+import 'package:semestral_flutter/src/Pages/secciones_page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,8 +46,19 @@ class _MenuPageState extends State<EliminarPage> {
       backgroundColor: Colors.orange[200],
       appBar: AppBar(
           title: Text("$seccion"),
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.orange[400],
           actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.arrow_left),
+              tooltip: 'Secciones',
+              onPressed: () {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(const SnackBar(content: Text('Secciones')));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => SeccionesPage()));
+              },
+            ),
             IconButton(
               icon: const Icon(Icons.add),
               tooltip: 'Carrito',
