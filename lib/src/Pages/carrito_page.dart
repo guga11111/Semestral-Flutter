@@ -21,6 +21,7 @@ class _CarritoPageState extends State<CarritoPage> {
   String _direccion = '';
   String _datos = '';
   String carrito;
+  String celular;
   String user;
   int total;
 
@@ -89,6 +90,20 @@ class _CarritoPageState extends State<CarritoPage> {
                   ),
                   onChanged: (valor) => setState(() {
                     _datos = valor;
+                  }),
+                ),
+              ),
+              ListTile(
+                trailing: Icon(Icons.phone),
+                title: TextField(
+                  keyboardType: TextInputType.number,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelText: 'Celular',
+                  ),
+                  onChanged: (valor) => setState(() {
+                    celular = valor;
                   }),
                 ),
               ),
@@ -213,6 +228,7 @@ class _CarritoPageState extends State<CarritoPage> {
     print(user);
     print(_direccion);
     print(_datos);
+    print(celular);
 
     firestoreInstance.collection('pedidos').doc(id).set({
       "Productos": carrito,
@@ -221,6 +237,7 @@ class _CarritoPageState extends State<CarritoPage> {
       "Notas de envio": _datos,
       "Id": id,
       "Usuario": user,
+      "Telefono": celular,
       "Estatus": "En proceso"
     }).then((_) {
       print("success!");

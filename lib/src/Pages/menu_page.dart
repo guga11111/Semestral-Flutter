@@ -87,7 +87,10 @@ class _MenuPageState extends State<MenuPage> {
           ]),
       backgroundColor: Colors.orange[200],
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('platillos').snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('platillos')
+            .orderBy("Seccion", descending: true)
+            .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return Text('');

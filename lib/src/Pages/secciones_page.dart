@@ -29,99 +29,101 @@ class _SeccionesPageState extends State<SeccionesPage> {
 
   Widget _card(BuildContext context) {
     final card = Container(
+        padding: EdgeInsets.symmetric(vertical: 1, horizontal: 16),
         child: new Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-          Row(
-            children: <Widget>[
-              FlatButton(
-                  child: Image.asset('lib/src/images/Caldos.png'),
-                  height: 30,
-                  textColor: Colors.orange[400],
-                  color: Colors.white24,
-                  padding: const EdgeInsets.only(left: 13, top: 15),
-                  onPressed: () {
-                    _caldos(context);
-                  }),
-              FlatButton(
-                  child: Image.asset('lib/src/images/Plato fuerte.png'),
-                  height: 30,
-                  textColor: Colors.orange[400],
-                  color: Colors.white24,
-                  padding: const EdgeInsets.only(left: 15, top: 15),
-                  onPressed: () {
-                    _platofuerte(context);
-                  })
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              FlatButton(
-                  child: Image.asset('lib/src/images/Postres.png'),
-                  height: 30,
-                  textColor: Colors.orange[400],
-                  color: Colors.white24,
-                  padding: const EdgeInsets.only(left: 15, top: 10),
-                  onPressed: () {
-                    _postres(context);
-                  }),
-              FlatButton(
-                  child: Image.asset('lib/src/images/Especial.png'),
-                  height: 30,
-                  textColor: Colors.orange[400],
-                  color: Colors.white24,
-                  padding: const EdgeInsets.only(left: 15, top: 15),
-                  onPressed: () {
-                    _especiales(context);
-                  })
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              FlatButton(
-                  child: Image.asset('lib/src/images/Comida rápida.png'),
-                  height: 30,
-                  textColor: Colors.orange[400],
-                  color: Colors.white24,
-                  padding: const EdgeInsets.only(left: 15, top: 10),
-                  onPressed: () {
-                    _rapida(context);
-                  }),
-              FlatButton(
-                  child: Image.asset('lib/src/images/Bebidas alcoholicas.png'),
-                  height: 30,
-                  textColor: Colors.orange[400],
-                  color: Colors.white24,
-                  padding: const EdgeInsets.only(left: 15, top: 15),
-                  onPressed: () {
-                    _alcohol(context);
-                  })
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              FlatButton(
-                  child: Image.asset('lib/src/images/Refrescos.png'),
-                  height: 30,
-                  textColor: Colors.orange[400],
-                  color: Colors.white24,
-                  padding: const EdgeInsets.only(left: 15, top: 10),
-                  onPressed: () {
-                    _refrescos(context);
-                  }),
-              FlatButton(
-                  child: Image.asset('lib/src/images/Souvenirs.png'),
-                  height: 30,
-                  textColor: Colors.orange[400],
-                  padding: const EdgeInsets.only(left: 15, top: 15),
-                  onPressed: () {
-                    _souvenirs(context);
-                  })
-            ],
-          ),
-          Container(padding: EdgeInsets.all(4.0), child: Text(''))
-        ]));
+              Row(
+                children: <Widget>[
+                  FlatButton(
+                      child: Image.asset('lib/src/images/Caldos.png'),
+                      height: 30,
+                      textColor: Colors.orange[400],
+                      color: Colors.white24,
+                      padding: const EdgeInsets.only(left: 13, top: 15),
+                      onPressed: () {
+                        _caldos(context);
+                      }),
+                  FlatButton(
+                      child: Image.asset('lib/src/images/Plato fuerte.png'),
+                      height: 30,
+                      textColor: Colors.orange[400],
+                      color: Colors.white24,
+                      padding: const EdgeInsets.only(left: 15, top: 15),
+                      onPressed: () {
+                        _platofuerte(context);
+                      })
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  FlatButton(
+                      child: Image.asset('lib/src/images/Postres.png'),
+                      height: 30,
+                      textColor: Colors.orange[400],
+                      color: Colors.white24,
+                      padding: const EdgeInsets.only(left: 15, top: 10),
+                      onPressed: () {
+                        _postres(context);
+                      }),
+                  FlatButton(
+                      child: Image.asset('lib/src/images/Especial.png'),
+                      height: 30,
+                      textColor: Colors.orange[400],
+                      color: Colors.white24,
+                      padding: const EdgeInsets.only(left: 15, top: 15),
+                      onPressed: () {
+                        _especiales(context);
+                      })
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  FlatButton(
+                      child: Image.asset('lib/src/images/Comida rápida.png'),
+                      height: 30,
+                      textColor: Colors.orange[400],
+                      color: Colors.white24,
+                      padding: const EdgeInsets.only(left: 15, top: 10),
+                      onPressed: () {
+                        _rapida(context);
+                      }),
+                  FlatButton(
+                      child:
+                          Image.asset('lib/src/images/Bebidas alcoholicas.png'),
+                      height: 30,
+                      textColor: Colors.orange[400],
+                      color: Colors.white24,
+                      padding: const EdgeInsets.only(left: 15, top: 15),
+                      onPressed: () {
+                        _alcohol(context);
+                      })
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  FlatButton(
+                      child: Image.asset('lib/src/images/Refrescos.png'),
+                      height: 30,
+                      textColor: Colors.orange[400],
+                      color: Colors.white24,
+                      padding: const EdgeInsets.only(left: 15, top: 10),
+                      onPressed: () {
+                        _refrescos(context);
+                      }),
+                  FlatButton(
+                      child: Image.asset('lib/src/images/Souvenirs.png'),
+                      height: 30,
+                      textColor: Colors.orange[400],
+                      padding: const EdgeInsets.only(left: 15, top: 15),
+                      onPressed: () {
+                        _souvenirs(context);
+                      })
+                ],
+              ),
+              Container(padding: EdgeInsets.all(4.0), child: Text(''))
+            ]));
 
     return Container(
       padding: EdgeInsets.only(left: 5, right: 5),

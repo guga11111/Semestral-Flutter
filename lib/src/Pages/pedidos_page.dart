@@ -249,6 +249,27 @@ class _PedidosPageState extends State<PedidosPage> {
                                 Divider(
                                   thickness: 5,
                                 ),
+                                Text(
+                                  "Telefono",
+                                  overflow: TextOverflow.clip,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                      decoration: TextDecoration.none),
+                                ),
+                                Text(
+                                  document['Telefono'].toString(),
+                                  overflow: TextOverflow.clip,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                      decoration: TextDecoration.none),
+                                ),
+                                Divider(
+                                  thickness: 5,
+                                ),
                                 Row(children: <Widget>[
                                   FlatButton(
                                       child: Text('Entregado'),

@@ -169,10 +169,10 @@ class _RegistroPageState extends State<RegistroPage> {
       print('entro2');
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: _email, password: _pass);
+      var currentUser = FirebaseAuth.instance.currentUser;
       collection();
-
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => MenuPage()));
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => MenuPage(user: currentUser.email)));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
