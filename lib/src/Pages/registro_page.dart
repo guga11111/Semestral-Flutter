@@ -80,6 +80,7 @@ class _RegistroPageState extends State<RegistroPage> {
               ListTile(
                 leading: Icon(Icons.email, color: Colors.black),
                 title: TextField(
+                  keyboardType: TextInputType.emailAddress,
                   obscureText: false,
                   decoration: InputDecoration(
                     border: UnderlineInputBorder(),
@@ -93,6 +94,7 @@ class _RegistroPageState extends State<RegistroPage> {
               ListTile(
                 leading: Icon(Icons.local_phone, color: Colors.black),
                 title: TextField(
+                  keyboardType: TextInputType.number,
                   obscureText: false,
                   decoration: InputDecoration(
                     border: UnderlineInputBorder(),
